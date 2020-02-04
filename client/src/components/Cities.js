@@ -17,8 +17,8 @@ const Cities = ({cities}) => {
                         width: 400,
                         height: 300,
                         paddingLeft: 15
-                    }}/>
-                </div>
+                    }} /><br/><br/>
+               </div>
             ))}</div>
     )
 };
