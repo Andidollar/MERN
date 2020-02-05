@@ -17,6 +17,9 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={ Landing } />
           </Switch>
+          {/* <Switch>
+          <Route exact path='/' component={ SearchCity } />
+          </Switch> */}
           <Switch>
             <Route exact path='/' component={ FetchCities } />
           </Switch>
