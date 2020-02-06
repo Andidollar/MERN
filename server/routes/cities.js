@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const cityModel = require('../model/cityModel')
 
+
 router.get('/test', (req, res) => {
     res.send({ msg: 'Cities test route.' })
 
@@ -15,4 +16,18 @@ router.get('/all',
                 res.send(files)
             })
             .catch(err => console.log(err));
+    });
+
+    router.post('/', (req, res) => {
+        const newCity = new cityModel({
+            name: req.body.name,
+            country: req.body.country,
+            image: req.body.image
+        })
+        newCity.save()
+          .then(city => {  
+          res.send(city)
+          })
+          .catch(err => {
+          res.status(500).send("Server error")}) 
     });

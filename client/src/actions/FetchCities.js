@@ -6,26 +6,44 @@ import Cities from '../components/Cities';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class FetchCities extends Component {
-    state = {
+    constructor(props) {
+        super(props);
+        this.state = {
         cities: [],
         input: ''
-    };
+    }};
 
-    onChangeHandler(e) {
-        this.setState({input: e.target.value})
-    }
+   filterCities = () => {
+
+        return this.state.cities.filter(city => {
+            return city.name.includes(this.state.input)
+        })
+   }
 
     render() {
-        return (
+const cities = this.filterCities()
+            
+        const onChangeHandler = (e) => {
+            console.log(e)
+            console.log(this.state)
+            this.setState({input: e.target.value})
+            
+        }
+      
+              return ( 
             <div>
                 <input
                     type="text"
                     placeholder="Search by city"
+                    onChange={onChangeHandler.bind(this)}
+                    value={this.state.input}
                     style={{
                     marginLeft: 15
+                    
                 }}/>
-                <Cities cities={this.state.cities}/></div>
-        )
+                
+                <Cities cities={cities} input={this.state.input}/></div>
+              )
     }
 
     componentDidMount() {
@@ -37,6 +55,7 @@ class FetchCities extends Component {
             })
             .catch(console.log)
     }
+    
 }
 
 export default FetchCities

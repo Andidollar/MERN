@@ -1,9 +1,11 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator') // duplicates omitted
+
 
 const citySchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: true, //note
         unique: true
     },
     country: {
@@ -14,5 +16,7 @@ const citySchema = new mongoose.Schema({
         type: String,
     }
 })
+
+citySchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('city', citySchema)
