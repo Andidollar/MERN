@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 // import Landing from './components/Landing';
 import Cities from './children/Cities';
+import {fetchAll} from '../store/actions/cityActions'
+import { connect } from "react-redux";
 // import 'bootstrap/dist/css/bootstrap.min.css'; import $ from 'jquery'; import
 // Popper from 'popper.js'; import 'bootstrap/dist/js/bootstrap.bundle.min';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -55,15 +57,27 @@ class FetchCities extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:5000/cities/all')
-            .then(res => res.json())
-            .then((data) => {
-                console.log(data)
-                this.setState({cities: data})
-            })
-            .catch(console.log)
+        // fetch('http://localhost:5000/cities/all')
+        //     .then(res => res.json())
+        //     .then((data) => {
+        //         console.log(data)
+        //         this.setState({cities: data})
+        //     })
+        //     .catch(console.log)
+        
+        // console.log(fetchAll());
+        this.props.fetchAll();
+        
     }
 
 }
 
-export default FetchCities
+const mapStateToProps = state => {
+    return {
+      cities: state.cities
+    };
+  };
+
+// export default FetchCities
+
+export default connect(mapStateToProps, { fetchAll })(FetchCities);
