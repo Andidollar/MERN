@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Landing from './components/Landing';
-import FetchCities from './actions/FetchCities';
+import FetchCities from './components/FetchCities';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
 // import Popper from 'popper.js';

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 // import Landing from './components/Landing';
-import Cities from '../components/Cities';
+import Cities from './children/Cities';
 // import 'bootstrap/dist/css/bootstrap.min.css'; import $ from 'jquery'; import
 // Popper from 'popper.js'; import 'bootstrap/dist/js/bootstrap.bundle.min';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -23,7 +23,7 @@ class FetchCities extends Component {
                 return city
                     .name
                     .toLowerCase()
-                    .includes(this.state.input)
+                    .startsWith(this.state.input.toLowerCase())
             })
     }
 
@@ -45,7 +45,9 @@ class FetchCities extends Component {
                     onChange={onChangeHandler.bind(this)}
                     value={this.state.input}
                     style={{
-                    marginLeft: 15
+                    marginLeft: 15,
+                    marginBottom: 15,
+                    marginTop: 10
                 }}/>
 
                 <Cities cities={cities} input={this.state.input}/></div>
