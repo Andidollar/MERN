@@ -9,28 +9,35 @@ class FetchCities extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        cities: [],
-        input: ''
-    }};
+            cities: [],
+            input: ''
+        }
+    };
 
-   filterCities = () => {
+    filterCities = () => {
 
-        return this.state.cities.filter(city => {
-            return city.name.includes(this.state.input)
-        })
-   }
+        return this
+            .state
+            .cities
+            .filter(city => {
+                return city
+                    .name
+                    .toLowerCase()
+                    .includes(this.state.input)
+            })
+    }
 
     render() {
-const cities = this.filterCities()
-            
+        const cities = this.filterCities()
+
         const onChangeHandler = (e) => {
             console.log(e)
             console.log(this.state)
             this.setState({input: e.target.value})
-            
+
         }
-      
-              return ( 
+
+        return (
             <div>
                 <input
                     type="text"
@@ -39,11 +46,10 @@ const cities = this.filterCities()
                     value={this.state.input}
                     style={{
                     marginLeft: 15
-                    
                 }}/>
-                
+
                 <Cities cities={cities} input={this.state.input}/></div>
-              )
+        )
     }
 
     componentDidMount() {
@@ -55,7 +61,7 @@ const cities = this.filterCities()
             })
             .catch(console.log)
     }
-    
+
 }
 
 export default FetchCities
