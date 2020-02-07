@@ -7,9 +7,43 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const Cities = ({cities, input}) => {
     console.log(input)
+    console.log('cities', cities)
+    const onChangeHandler = (e) => {
+        console.log(e)
+        console.log(this.state)
+        this.setState({input: e.target.value})
+        filterCities()
+
+    }
+    const filterCities = () => {
+        console.log("hi")
+
+        const filteredCities = cities
+            .filter(city => {
+                return city
+                    .name
+                    .toLowerCase()
+                    .startsWith(this.state.input.toLowerCase())
+            })
+            console.log('filteredCities', filteredCities)
+            this.setState({cities: filteredCities})
+    }
     return (
+
+        
            
             <div>
+
+            <input
+                    type="text"
+                    placeholder="Search by city"
+                    onChange={onChangeHandler.bind(this)}
+                    value={this.state.input}
+                    style={{
+                    marginLeft: 15,
+                    marginBottom: 15,
+                    marginTop: 10
+                }}/>
                 { cities &&
                     cities.map((city) => (
                     <div key={city._id}>

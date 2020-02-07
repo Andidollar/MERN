@@ -16,32 +16,41 @@ class FetchCities extends Component {
         }
     };
 
-    filterCities = () => {
+    
 
-        return this
-            .state
-            .cities
-            .filter(city => {
-                return city
-                    .name
-                    .toLowerCase()
-                    .startsWith(this.state.input.toLowerCase())
-            })
-    }
+    
 
     render() {
-        const cities = this.filterCities()
+        //const cities = this.filterCities()
+        const {cities} = this.props.cities
+        console.log('loading', this.props.cities)
+        
+        console.log("cities", cities)
+        // const onChangeHandler = (e) => {
+        //     console.log(e)
+        //     console.log(this.state)
+        //     this.setState({input: e.target.value})
+        //     filterCities()
 
-        const onChangeHandler = (e) => {
-            console.log(e)
-            console.log(this.state)
-            this.setState({input: e.target.value})
+        // }
+        // const filterCities = () => {
+        //     console.log("hi")
 
-        }
+        //     const filteredCities =  cities
+        //         .filter(city => {
+        //             return city
+        //                 .name
+        //                 .toLowerCase()
+        //                 .startsWith(this.state.input.toLowerCase())
+        //         })
+        //         console.log('filteredCities', filteredCities)
+        //         this.setState({cities: filteredCities})
+        // }
 
         return (
+            
             <div>
-                <input
+                {/* <input
                     type="text"
                     placeholder="Search by city"
                     onChange={onChangeHandler.bind(this)}
@@ -50,9 +59,13 @@ class FetchCities extends Component {
                     marginLeft: 15,
                     marginBottom: 15,
                     marginTop: 10
-                }}/>
-
-                <Cities cities={cities} input={this.state.input}/></div>
+                }}/> */}
+                
+                {
+                    this.state.cities.length !== 0 && <Cities cities={this.state.cities} input={this.state.input}/>
+                }
+                
+                </div> 
         )
     }
 
@@ -65,14 +78,16 @@ class FetchCities extends Component {
         //     })
         //     .catch(console.log)
         
-        // console.log(fetchAll());
+        // console.log({cities: data})
         this.props.fetchAll();
+
         
     }
 
 }
 
 const mapStateToProps = state => {
+    
     return {
       cities: state.cities
     };
