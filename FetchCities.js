@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 // import Landing from './components/Landing';
 import Cities from './children/Cities';
 import {fetchAll} from '../store/actions/cityActions'
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 // import 'bootstrap/dist/css/bootstrap.min.css'; import $ from 'jquery'; import
 // Popper from 'popper.js'; import 'bootstrap/dist/js/bootstrap.bundle.min';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -16,34 +16,41 @@ class FetchCities extends Component {
         }
     };
 
-    filterCities = () => {
+    
 
-        return this
-            .props
-            .cities
-            .cities
-            .filter(city => {
-                return city
-                    .name
-                    .toLowerCase()
-                    .startsWith(this.state.input.toLowerCase())
-            })
-    }
+    
 
     render() {
-        const {isLoaded} = this.props.cities
-        const cities = this.filterCities()
+        //const cities = this.filterCities()
+        const {cities} = this.props.cities
+        console.log('loading', this.props.cities)
+        
+        console.log("cities", cities)
+        // const onChangeHandler = (e) => {
+        //     console.log(e)
+        //     console.log(this.state)
+        //     this.setState({input: e.target.value})
+        //     filterCities()
 
-        const onChangeHandler = (e) => {
-            console.log(e)
-            console.log(this.state)
-            this.setState({input: e.target.value})
+        // }
+        // const filterCities = () => {
+        //     console.log("hi")
 
-        }
+        //     const filteredCities =  cities
+        //         .filter(city => {
+        //             return city
+        //                 .name
+        //                 .toLowerCase()
+        //                 .startsWith(this.state.input.toLowerCase())
+        //         })
+        //         console.log('filteredCities', filteredCities)
+        //         this.setState({cities: filteredCities})
+        // }
 
         return (
+            
             <div>
-                <input
+                {/* <input
                     type="text"
                     placeholder="Search by city"
                     onChange={onChangeHandler.bind(this)}
@@ -52,10 +59,13 @@ class FetchCities extends Component {
                     marginLeft: 15,
                     marginBottom: 15,
                     marginTop: 10
-                }}/>
-
-                { isLoaded &&  <Cities cities={cities} input={this.state.input}/>}
-                </div>
+                }}/> */}
+                
+                {
+                     <Cities cities={this.state.cities} input={this.state.input}/>
+                }
+                
+                </div> 
         )
     }
 
@@ -68,12 +78,16 @@ class FetchCities extends Component {
         //     })
         //     .catch(console.log)
         
-        // console.log(fetchAll());
+        // console.log({cities: data})
         this.props.fetchAll();
+
+        
     }
+
 }
+
 const mapStateToProps = state => {
-    console.log(state)
+    
     return {
       cities: state.cities
     };

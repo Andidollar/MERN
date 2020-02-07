@@ -10,7 +10,8 @@ const initState = {
       case "FETCH_ALL":
         return {
           ...state,
-          cities: action.payload
+          cities: action.payload,
+          isLoaded: true
         };
   
       default:
