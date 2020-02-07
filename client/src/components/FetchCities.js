@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 // import Landing from './components/Landing';
+import '../index.css';
 import Cities from './children/Cities';
-import {fetchAll} from '../store/actions/cityActions'
+import {fetchAll} from '../store/actions/cityActions';
 import {connect} from "react-redux";
+import home from '../media/homeIcon.png';
+import { Link } from "react-router-dom";
 // import 'bootstrap/dist/css/bootstrap.min.css'; import $ from 'jquery'; import
 // Popper from 'popper.js'; import 'bootstrap/dist/js/bootstrap.bundle.min';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-class FetchCities extends Component {
+export class FetchCities extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,11 +20,10 @@ class FetchCities extends Component {
     };
 
     filterCities = () => {
-
         return this
-            .props
+            .props // redux
             .cities
-            .cities
+            .cities // redux
             .filter(city => {
                 return city
                     .name
@@ -44,41 +46,44 @@ class FetchCities extends Component {
         return (
             <div>
                 <input
+                    id="searchField"
                     type="text"
                     placeholder="Search by city"
                     onChange={onChangeHandler.bind(this)}
                     value={this.state.input}
                     style={{
+                    border: 'solid black',
                     marginLeft: 15,
                     marginBottom: 15,
                     marginTop: 10
-                }}/>
-
-                { isLoaded &&  <Cities cities={cities} input={this.state.input}/>}
-                </div>
+                }}/> {isLoaded && <Cities cities={cities} input={this.state.input}/>}
+                <Link to="/home">
+                <img
+                    className="homeButton"
+                    src={home}
+                    alt="home"
+                    style={{
+                    width: 100,
+                    display: 'block',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    marginTop: 10,
+                    marginBottom: 10
+                }}></img></Link>
+            </div>
         )
     }
-
     componentDidMount() {
-        // fetch('http://localhost:5000/cities/all')
-        //     .then(res => res.json())
-        //     .then((data) => {
-        //         console.log(data)
-        //         this.setState({cities: data})
-        //     })
-        //     .catch(console.log)
-        
-        // console.log(fetchAll());
-        this.props.fetchAll();
+        this
+            .props
+            .fetchAll()
     }
 }
 const mapStateToProps = state => {
     console.log(state)
-    return {
-      cities: state.cities
-    };
-  };
+    return {cities: state.cities};
+};
 
 // export default FetchCities
 
-export default connect(mapStateToProps, { fetchAll })(FetchCities);
+export default connect(mapStateToProps, {fetchAll})(FetchCities);

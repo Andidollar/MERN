@@ -15,13 +15,13 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route exact path='/' component={ Landing } />
+            <Route exact path='/home' component={ Landing } />
           </Switch>
           {/* <Switch>
           <Route exact path='/' component={ SearchCity } />
           </Switch> */}
           <Switch>
-            <Route exact path='/' component={ FetchCities } />
+            <Route exact path='/cities' component={ FetchCities } />
           </Switch>
         </div>
       </BrowserRouter>
