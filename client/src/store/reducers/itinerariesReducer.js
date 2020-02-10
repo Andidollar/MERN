@@ -1,16 +1,16 @@
 const initState = {
-    cities: [],
+    itineraries: [],
     isLoaded: false,
     error: null
   };
   
-  const citiesReducer = (state = initState, action) => {
+  const itinerariesReducer = (state = initState, action) => {
       console.log(action.type)
     switch (action.type) {
-      case "FETCH_ALL":
+      case "FETCH_ITINERARIES":
         return {
           ...state,
-          cities: action.payload,
+          itineraries: action.payload,
           isLoaded: true
         };
   
@@ -21,4 +21,4 @@ const initState = {
     }
   };
   
-  export default citiesReducer;
+  export default itinerariesReducer;
