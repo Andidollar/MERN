@@ -45,6 +45,7 @@ export class FetchCities extends Component {
 
         return (
             <div>
+            <div className= "search">
                 <input
                     id="searchField"
                     type="text"
@@ -56,7 +57,7 @@ export class FetchCities extends Component {
                     marginLeft: 15,
                     marginBottom: 15,
                     marginTop: 10
-                }}/> {isLoaded && <Cities cities={cities} input={this.state.input}/>}
+                }}/></div> {isLoaded && <Cities cities={cities} input={this.state.input}/>}
                 <Link to="/home">
                 <img
                     className="homeButton"
