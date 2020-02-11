@@ -22,4 +22,22 @@ router.get('/:city_id',
         .catch(err => console.log(err));
 });
 
+router.post('/', (req, res) => {
+    const newItinerary = new itineraryModel({
+        city_id: req.body.city_id,
+        title: req.body.title,
+        picture: req.body.picture,
+        rating: req.body.rating,
+        duration: req.body.duration,
+        price: req.body.price,
+        hashtags: req.body.hashtags
+    })
+    newItinerary.save()
+      .then(itinerary => {  
+      res.send(itinerary)
+      })
+      .catch(err => {
+      res.status(500).send("Server error")}) 
+});
+
 module.exports = router

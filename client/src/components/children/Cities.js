@@ -44,37 +44,6 @@ const Cities = ({cities, input, itineraries}) => {
                      <br/><br/>
                 </div>
             ))}
-            {/* {itineraries.map((itinerary) => ( 
-            
-            <div class="modal fade" id={itinerary.city_id} tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-            <div className="modal-dialog modal-dialog-scrollable" role="document">
-            <div className="modal-content">
-            
-            <div className="modal-header">
-            <h5 className="modal-title" id="title">{itinerary.title}</h5></div>
-            <img src={itinerary.picture} alt="Activity"
-            style={{
-            width: 400,
-            height: 200,
-            overflow: 'hidden',
-            display: 'block',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginTop: 10
-            }}></img>
-            <div class="modal-body">
-            <ul style={{ listStyleType: "none" }}>
-                <li>Rating: {itinerary.rating}</li>
-                <li>Duration (hours): {itinerary.duration}</li>
-                <li>Price (€): {itinerary.price}</li>
-            </ul>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-            </div>
-            </div>
-            </div>))} */}
             </div>
 
         
