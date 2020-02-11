@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import '../index.css';
 import Cities from './children/Cities';
 import {fetchAll} from '../store/actions/cityActions';
+// import {fetchItineraries} from '../store/actions/itineraryActions';
 import {connect} from "react-redux";
 import home from '../media/homeIcon.png';
 import {Link} from "react-router-dom";
@@ -18,6 +19,7 @@ export class FetchCities extends Component {
             input: ''
         }
     };
+
 
     filterCities = () => {
         return this
@@ -81,6 +83,7 @@ export class FetchCities extends Component {
             .props
             .fetchAll()
     }
+
 }
 const mapStateToProps = state => {
     console.log(state)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Landing from './components/Landing';
 import FetchCities from './components/FetchCities';
-// import MYtinerary from './components/MYtinerary';
+import MYtinerary from './components/MYtinerary';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
 // import Popper from 'popper.js';
@@ -24,6 +24,10 @@ class App extends Component {
           <Switch>
             <Route exact path='/cities' component={ FetchCities } />
           </Switch>
+          <Switch>
+            <Route exact path='/cities/:id/itinerary' component={ MYtinerary } />
+          </Switch>
+
         </div>
       </BrowserRouter>
     );

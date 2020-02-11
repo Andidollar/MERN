@@ -2,7 +2,7 @@ import React from 'react';
 import '../../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-// import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 // import {fetchItineraries} from '../../store/actions/itineraryActions'; import
 // {Link} from "react-router-dom"; const filteredCitie = cities.filter(element
 // => {input})
@@ -20,14 +20,16 @@ const Cities = ({cities, input, itineraries}) => {
                     <img src={city.image}
                         alt="pic"
                         style={{
-                        width: 350,
+                        width: 500,
                         height: 350,
+                        objectFit: 'cover',
                         overflow: 'hidden',
                         display: 'block',
                         marginLeft: 'auto',
                         marginRight: 'auto',
                         padding: 10
                     }}/>
+                    <Link to={"/cities/" + city.name + "/itinerary"}>
                         <button
                         // id={city.name}
                         className="btn btn-secondary"
@@ -38,11 +40,11 @@ const Cities = ({cities, input, itineraries}) => {
                         marginLeft: 'auto',
                         marginRight: 'auto'
                     }}>{"MYtinerary for " + city.name}
-                    </button>
+                    </button></Link>
                      <br/><br/>
                 </div>
             ))}
-            {itineraries.map((itinerary) => ( 
+            {/* {itineraries.map((itinerary) => ( 
             
             <div class="modal fade" id={itinerary.city_id} tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
             <div className="modal-dialog modal-dialog-scrollable" role="document">
@@ -72,7 +74,7 @@ const Cities = ({cities, input, itineraries}) => {
             </div>
             </div>
             </div>
-            </div>))}
+            </div>))} */}
             </div>
 
         
