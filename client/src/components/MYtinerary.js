@@ -1,7 +1,10 @@
 import {connect} from "react-redux";
 import {fetchItineraries} from "../store/actions/itineraryActions";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '../index.css';
 // import Itineraries from './children/Itineraries'; 
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import React, {Component} from 'react'
 
@@ -32,22 +35,35 @@ export class MYtinerary extends Component {
           <img src={itinerary.picture}
               alt="itineraryPic"
               style={{
-              width: 300,
-              height: 350,
-            
-              objectFit: 'cover',
-              overflow: 'hidden',
-              display: 'block',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              padding: 10
+                width: 500,
+                height: 350,
+                objectFit: 'cover',
+                overflow: 'hidden',
+                display: 'block',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                paddingBottom: 10
           }}/>
-          <p>Rating: {itinerary.rating}</p>
-          <p>Duration (hours): {itinerary.duration}</p>
-          <p>Price (€): {itinerary.price}</p>
-          <p>Tags: {itinerary.hashtags}</p>
+          <p><b>Rating: </b>{itinerary.rating}
+          <b> Duration (hours): </b>{itinerary.duration}
+          <b> Price (€): </b>{itinerary.price}<br></br>
+          <b> Tags: </b>{itinerary.hashtags}</p>
+          <p>
+  <a className="btn btn-primary" data-toggle="collapse" href={"#" + itinerary.city_id} role="button" aria-expanded="false" aria-controls="collapseExample">
+    Activities
+  </a>
+</p>
+<div className="collapse" id={itinerary.city_id}>
+  <div className="card card-body">
+  <ul style={{ listStyleType: "none" }}>
+                <li>Rating: {itinerary.rating}</li>
+                <li>Duration (hours): {itinerary.duration}</li>
+                <li>Price (€): {itinerary.price}</li>
+            </ul>
+  </div>
+</div>        
+            
       </div>]
-
       }
         )
      }
@@ -60,6 +76,7 @@ export class MYtinerary extends Component {
 
             <div>
               {itineraries}
+             <p className='links' style={{marginTop: 10}}><Link to="/cities">Choose another city</Link></p>
             </div>
         )
     }

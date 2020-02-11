@@ -61,7 +61,6 @@ export class FetchCities extends Component {
                         marginTop: 10
                     }}/></div>
                 {isLoaded && <Cities cities={cities} input={this.state.input}/>}
-                {console.log('citXZies', cities)}
                 <Link to="/">
                     <img
                         className="homeButton"

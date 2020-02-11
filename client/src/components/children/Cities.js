@@ -27,7 +27,7 @@ const Cities = ({cities, input, itineraries}) => {
                         display: 'block',
                         marginLeft: 'auto',
                         marginRight: 'auto',
-                        padding: 10
+                        paddingBottom: 10
                     }}/>
                     <Link to={"/cities/" + city.name + "/itinerary"}>
                         <button
