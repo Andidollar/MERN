@@ -31,6 +31,7 @@ const Itineraries = ({itineraries}) => {
                     <p>Rating: {itinerary.rating}</p>
                     <p>Duration (hours): {itinerary.duration}</p>
                     <p>Price (€): {itinerary.price}</p>
+                    <p>Tags: {itinerary.hashtags}</p>
                 </div>
             ))}
             </div>
