@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Footer from './Footer';
+import Header from './Header';
 
 export default class Register extends Component {
     render() {
         return (
             <div>
+            <Header></Header>
                 <Form style={{
                     padding: 10
                 }}><h2 style={{
@@ -13,14 +16,10 @@ export default class Register extends Component {
                 }}>Registration</h2>
                     <Form.Group controlId="formBasicPic">
                         <Form.Label style={{
-                            backgroundColor: 'grey',
-                            display: 'inline-block',
-                            padding: 10,
-                            color: 'white',
-                            borderRadius: 5
                         }}>Upload picture</Form.Label>
                         <Form.Control type="file" style={{
-                        display: 'none' }}/>                     
+                        cursor: 'pointer',
+                        display: 'inline-block' }}/>                     
                     </Form.Group>
                     <Form.Group controlId="formBasicName">
                         <Form.Label>Username</Form.Label>
@@ -42,6 +41,7 @@ export default class Register extends Component {
                         Submit
                     </Button>
                 </Form>
+                <Footer></Footer>
             </div>
         )
     }

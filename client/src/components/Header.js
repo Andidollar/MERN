@@ -11,8 +11,8 @@ export default class Header extends Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                        <Nav.Link><Link to="/register">Register</Link></Nav.Link>
-                        <Nav.Link><Link to="/login">Log in</Link></Nav.Link>
+                        <Link to="/register">Register</Link>
+                        <Link to="/login">Log in</Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar> )
