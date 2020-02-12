@@ -2,6 +2,10 @@ import {connect} from "react-redux";
 import {fetchItineraries} from "../store/actions/itineraryActions";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Footer from './Footer';
 import '../index.css';
 // import Itineraries from './children/Itineraries'; 
 import { Link } from "react-router-dom";
@@ -49,21 +53,29 @@ export class MYtinerary extends Component {
           <b> Duration (hours): </b>{itinerary.duration}
           <b> Price (€): </b>{itinerary.price}<br></br>
           <b> Tags: </b>{itinerary.hashtags}</p>
-          <p>
-  <a className="btn btn-primary" data-toggle="collapse" href={"#" + itinerary.city_id} role="button" aria-expanded="false" aria-controls="collapseExample">
-    Activities
-  </a>
-</p>
-{itinerary.activities.map((c,index) =>
-<div className="collapse" key={index} id={c.city_id}>
-  <div className="card card-body">
-    <ul style={{ listStyleType: "none" }}>
+        
+          <Accordion defaultActiveKey="0">
+          <Card>
+          <Card.Header>
+          <Accordion.Toggle as={Button} variant="link" eventKey="1">
+          <p>Activities</p>
+          </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="1">
+          
+          <Card.Body>{itinerary.activities.map((c,index) =>
+    
+          <ul key={index} style={{ listStyleType: "none" }}>
+                <br></br><li><b>{c.tour}</b></li>
                 <li>Where? {c.address}</li>
                 <li>When? {c.time}</li>
             </ul>
-  </div>
-</div>   )}     
-            
+          
+            )}</Card.Body>
+          </Accordion.Collapse>
+          </Card>   
+          </Accordion><br></br>
+          
       </div>]
       }
         )
@@ -78,6 +90,7 @@ export class MYtinerary extends Component {
             <div>
               {itineraries}
              <p className='links' style={{marginTop: 10}}><Link to="/cities">Choose another city</Link></p>
+             <Footer></Footer>
             </div>
         )
     }

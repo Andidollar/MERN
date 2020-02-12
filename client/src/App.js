@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Landing from './components/Landing';
 import FetchCities from './components/FetchCities';
+import Register from './components/Register';
+import Login from './components/Login';
 import MYtinerary from './components/MYtinerary';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
@@ -27,7 +29,12 @@ class App extends Component {
           <Switch>
             <Route exact path='/cities/:id/itinerary' component={ MYtinerary } />
           </Switch>
-
+          <Switch>
+            <Route exact path='/register' component={ Register } />
+          </Switch>
+          <Switch>
+            <Route exact path='/login' component={ Login } />
+          </Switch>
         </div>
       </BrowserRouter>
     );
