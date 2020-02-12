@@ -13,7 +13,8 @@ export class MYtinerary extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            itineraries: []
+            itineraries: [],
+            activities: []
         }
     }
 
@@ -53,15 +54,15 @@ export class MYtinerary extends Component {
     Activities
   </a>
 </p>
-<div className="collapse" id={itinerary.city_id}>
+{itinerary.activities.map((c,index) =>
+<div className="collapse" key={index} id={c.city_id}>
   <div className="card card-body">
-  <ul style={{ listStyleType: "none" }}>
-                <li>Rating: {itinerary.rating}</li>
-                <li>Duration (hours): {itinerary.duration}</li>
-                <li>Price (€): {itinerary.price}</li>
+    <ul style={{ listStyleType: "none" }}>
+                <li>Where? {c.address}</li>
+                <li>When? {c.time}</li>
             </ul>
   </div>
-</div>        
+</div>   )}     
             
       </div>]
       }
