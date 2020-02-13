@@ -18,9 +18,13 @@ p {
   align-items: center;
 }
 
-.grid {
-  grid-template-columns: 20px auto 20px;
-  position: absolute;
+#grid {
+  grid-template-columns: 20fr 60fr 20fr;
+  /* position: absolute; */
+}
+
+#two {
+  grid-column: 2
 }
 
 /* a:hover {
