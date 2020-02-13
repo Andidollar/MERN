@@ -26,7 +26,15 @@ router.get('/all',
     //       res.send(user)
     //       })
     //       .catch(err => {
-    //       res.status(500).send("Username already taken")}) 
+    //           console.log('err', err.errors.username.kind)
+              
+    //           if(err.errors.username.kind === "unique"){
+    //             res.status(500).send('Username already taken') 
+    //           }else {
+    //             res.status(500).send("Internal server error") 
+    //           }
+    //         })
+          
     // });
 
     router.post('/', function (req, res) {
@@ -36,13 +44,31 @@ router.get('/all',
         username: req.body.username,
          email: req.body.email,
          password: hash
-         }).then(function(user) {
-          if (user) {
-          res.send(user);
-          }
-        }).catch(err => {
-            res.status(500).send("Username already taken")}) 
-       });
+         })
+         
+         console.log(newUser)
+
+         newUser.save()
+          .then(user => {  
+          res.send(user)
+          })
+          .catch(err => {
+              console.log('err', err.errors.username.kind)
+              
+              if(err.errors.username.kind === "unique"){
+                res.status(500).send('Username already taken') 
+              }else {
+                res.status(500).send("Internal server error") 
+              }
+            })
+        });
       });
 
     module.exports = router
+
+    //      .then(function(user) {
+    //       if (user) {
+    //       res.send(user);
+    //       }
+    //     }).catch(err => {
+    //         res.status(500).send("Username already taken")}) 
