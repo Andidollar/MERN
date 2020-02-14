@@ -3,6 +3,7 @@ const router = express.Router()
 const userModel = require('../model/userModel')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const passport = require("passport");
 
 router.get('/all', (req, res) => {
     userModel
@@ -39,6 +40,19 @@ router.post('/', function (req, res) {
                 })
         });
 });
+
+// router.get("/",
+//     passport.authenticate("jwt", { session: false }),
+//     (req, res) => {
+//       userModel
+//         .findOne({ _id: req.user._id
+//             })
+//         .then(user => {
+//           res.json(user);
+//         })
+//         .catch(err => res.status(404).json({ error: "User does not exist!" }));
+//     }
+//   );
 
 module.exports = router
 

@@ -4,6 +4,7 @@ import FetchCities from './components/FetchCities';
 import Register from './components/Register';
 import Login from './components/Login';
 import MYtinerary from './components/MYtinerary';
+// import { MemoryRouter } from 'react-router';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
 // import Popper from 'popper.js';

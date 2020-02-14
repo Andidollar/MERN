@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require('./keys').mongoURI;
 const mongoose = require("mongoose");
+const passport = require("passport");
 
 app.use(bodyParser.json());
 app.use(
@@ -21,6 +22,10 @@ app.use('/cities', require('./routes/cities'));
 app.use('/itineraries', require('./routes/itineraries'));
 app.use('/users', require('./routes/users'));
 app.use('/login', require('./routes/login'));
+//passport middleware
+app.use(passport.initialize());
+//passport configuration
+require('./passport');
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
     .then(() => console.log('Connection to Mongo DB established'))

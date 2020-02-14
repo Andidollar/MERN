@@ -4,15 +4,17 @@ const userModel = require('../model/userModel')
 const bcrypt = require('bcrypt');
 const key = require('../keys');
 const jwt = require('jsonwebtoken');
+const passport = require("passport");
 
-router.get('/all', (req, res) => {
-  userModel
-      .find({})
-      .then(files => {
-          res.send(files)
-      })
-      .catch(err => console.log(err))
-});
+// router.get('/all', (req, res) => {
+//   userModel
+//       .find({})
+//       .then(files => {
+//           res.send(files)
+//       })
+//       .catch(err => console.log(err))
+// });
+
 
 router.post("/", (req, res) => {
     const {email, password} = req.body;
@@ -28,7 +30,6 @@ router.post("/", (req, res) => {
         .then(user => {
             if (!user) 
                 return res.status(400).send('Email address does not exist')
-            
             bcrypt
                 .compare(password, user.password)
                 .then(isMatch => {
@@ -38,7 +39,7 @@ router.post("/", (req, res) => {
                     const payload = {
                         id: user._id,
                         picture: user.picture,
-                        username: user.username,
+                        username: user.username
                     };
 
                     const options = {
@@ -54,5 +55,19 @@ router.post("/", (req, res) => {
                 });
         });
 });
+
+router.get("/",
+    passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+      userModel
+        .findOne({ _id: req.user._id
+            })
+        .then(user => {
+          res.json(user);
+        })
+        .catch(err => res.status(404).json({ error: "User does not exist!" }));
+    }
+  );
+
 
 module.exports = router

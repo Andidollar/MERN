@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Footer from './Footer';
 import Header from './Header';
 import Axios from 'axios';
+import {Link} from "react-router-dom";
 // import {Redirect} from 'react-router'
 // import Grid from 'react-css-grid';
 
@@ -16,7 +17,8 @@ export default class Register extends Component {
             email: '',
             password: '',
             isError: false,
-            error: ''
+            error: '',
+            isRegistered: false
         }
         this.onChange = this
             .onChange
@@ -48,6 +50,7 @@ export default class Register extends Component {
             })
                 .then(res => {
                     console.log(res);
+                    this.setState({isRegistered: true});
                 })                
                 .catch(err => {
                     this.setState({isError: true, error: err.response.data});
@@ -60,6 +63,15 @@ export default class Register extends Component {
         return <div>{this.state.error}</div>;
     }
 
+    isRegistered() {
+        return (
+            <div>
+                <p>Thank you for registering!</p><Link to="/login"><p>Log in</p></Link>
+            </div>
+        );
+    }
+
+
     render() {
         return (
             <div>
@@ -68,9 +80,12 @@ export default class Register extends Component {
                     <h2 style={{
                         paddingBottom: 10
                     }}>Registration</h2>
+                    {this.state.isRegistered
+                    ? this.isRegistered()
+                    : null}
                     {this.state.isError
                         ? this.errorMessage()
-                        : null}
+                        : null} 
                         <Form
                     onSubmit={this.onSubmit}
                     style={{
