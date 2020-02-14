@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Footer from './Footer';
 import Header from './Header';
 import Axios from 'axios';
+// import {Redirect} from 'react-router'
 // import Grid from 'react-css-grid';
 
 export default class Register extends Component {
@@ -47,7 +48,7 @@ export default class Register extends Component {
             })
                 .then(res => {
                     console.log(res);
-                })
+                })                
                 .catch(err => {
                     this.setState({isError: true, error: err.response.data});
                     console.log(err.response);
@@ -63,17 +64,18 @@ export default class Register extends Component {
         return (
             <div>
                 <Header/>
-                <Form
-                    onSubmit={this.onSubmit}
-                    style={{
-                    padding: 10
-                }}>
+                
                     <h2 style={{
                         paddingBottom: 10
                     }}>Registration</h2>
                     {this.state.isError
                         ? this.errorMessage()
                         : null}
+                        <Form
+                    onSubmit={this.onSubmit}
+                    style={{
+                    padding: 10
+                }}>
                     <Form.Group>
                         <Form.Label>Profile picture (url)</Form.Label>
                         <Form.Control

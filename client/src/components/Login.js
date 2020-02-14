@@ -10,29 +10,18 @@ class Login extends Component {
         return (
             <div>
                 <Header/>
-                <Form
-                    // onSubmit={this.onSubmit}
-                    style={{
-                    padding: 10
-                }}>
+                
                     <h2 style={{
                         paddingBottom: 10
                     }}>Log in</h2>
                         {/* {this.state.isError
                         ? this.errorMessage()
                         : null} */}
-                    <Form.Group>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control
-                            name="username"
-                            placeholder="Enter username"
-                            id="username-input"
-                            type="text"
-                            className="validate"
-                            // value={this.state.username}
-                            // onChange={this.onChange}                                
-                            />
-                    </Form.Group>
+                        <Form
+                    // onSubmit={this.onSubmit}
+                    style={{
+                    padding: 10
+                    }}>
                     <Form.Group>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
@@ -49,7 +38,7 @@ class Login extends Component {
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             name="password"
-                            placeholder="12345678"
+                            placeholder="Enter password"
                             id="password-input"
                             type="password"
                             className="validate"
