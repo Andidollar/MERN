@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Landing from './components/Landing';
-import FetchCities from './components/FetchCities';
 import Register from './components/Register';
 import Login from './components/Login';
+import Landing from './components/Landing';
+import FetchCities from './components/FetchCities';
 import MYtinerary from './components/MYtinerary';
 // import { MemoryRouter } from 'react-router';
 // import 'bootstrap/dist/css/bootstrap.min.css';
