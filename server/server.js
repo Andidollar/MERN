@@ -25,7 +25,8 @@ app.use('/login', require('./routes/login'));
 //passport middleware
 app.use(passport.initialize());
 //passport configuration
-require('./passport');
+app.use(passport.session())
+require('./passport')(passport)
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
     .then(() => console.log('Connection to Mongo DB established'))

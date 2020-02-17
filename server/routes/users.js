@@ -17,7 +17,8 @@ router.get('/all', (req, res) => {
 router.post('/', function (req, res) {
     bcrypt
         .hash(req.body.password, saltRounds, function (err, hash) {
-            const newUser = new userModel({picture: req.body.picture, username: req.body.username, email: req.body.email, password: hash})
+            const newUser = new userModel({
+                picture: req.body.picture, username: req.body.username, email: req.body.email, password: hash})
 
             console.log(newUser)
 
@@ -31,7 +32,7 @@ router.post('/', function (req, res) {
                     if (err.errors.username.kind === "unique") {
                         res
                             .status(500)
-                            .send('Username already taken')
+                    .send('Username already taken')
                     } else {
                         res
                             .status(500)
@@ -40,6 +41,11 @@ router.post('/', function (req, res) {
                 })
         });
 });
+
+module.exports = router
+
+//      .then(function(user) {       if (user) {       res.send(user);       }
+//   }).catch(err => {         res.status(500).send("Username already taken")})
 
 // router.get("/",
 //     passport.authenticate("jwt", { session: false }),
@@ -52,9 +58,4 @@ router.post('/', function (req, res) {
 //         })
 //         .catch(err => res.status(404).json({ error: "User does not exist!" }));
 //     }
-//   );
-
-module.exports = router
-
-//      .then(function(user) {       if (user) {       res.send(user);       }
-//   }).catch(err => {         res.status(500).send("Username already taken")})
+//   );b

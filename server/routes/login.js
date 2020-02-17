@@ -4,7 +4,7 @@ const userModel = require('../model/userModel')
 const bcrypt = require('bcrypt');
 const key = require('../keys');
 const jwt = require('jsonwebtoken');
-const passport = require("passport");
+const passport = require('passport');
 
 // router.get('/all', (req, res) => {
 //   userModel
@@ -49,7 +49,7 @@ router.post("/", (req, res) => {
                         if (err) {
                             res.json({success: false, token: 'There was an error'});
                         } else {
-                            res.json({success: true, token: token});
+                            res.json({success: true, token: "bearer " + token});
                         }
                     });
                 });
@@ -68,6 +68,40 @@ router.get("/",
         .catch(err => res.status(404).json({ error: "User does not exist!" }));
     }
   );
+
+  // auth with google
+router.get('/google', passport.authenticate('google', {
+    scope: ['email', 'profile']
+}));
+
+// callback route for google to redirect to
+// hand control to passport to use code to grab profile info
+router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
+    let user = req.user
+    console.log('user :', user);
+    const payload = {
+        user: {
+            id: user.id
+        }
+    }
+    jwt.sign(
+        payload,
+        keys.secret,
+        {
+            expiresIn: 2592000
+        },
+        (err, token) => {
+            res.json({
+                user,
+                success: true,
+                token,
+            });
+        }
+    );
+    //redirect to front-end
+    //res.redirect('/');
+});
+
 
 
 module.exports = router

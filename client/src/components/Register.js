@@ -37,9 +37,9 @@ export default class Register extends Component {
         e.preventDefault();
         if (!this.state.picture || !this.state.username || !this.state.email || !this.state.password) {
             console.log("not filled");
-            this.setState({isError: true, error: "All fields are required."});
+            this.setState({isError: true, error: 'All fields are required'});
         } else {
-            this.setState({isError: false, error: "no errors."});
+            this.setState({isError: false, error: 'No errors'});
 
             Axios
                 .post("http://localhost:5000/users", {
