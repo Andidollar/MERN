@@ -6,7 +6,7 @@ import {fetchAll} from '../store/actions/cityActions';
 // import {fetchItineraries} from '../store/actions/itineraryActions';
 import {connect} from "react-redux";
 import Footer from './Footer'
-import Header from './Header'
+import Header from './Header1'
 // import home from '../media/homeIcon.png';
 // import {Link} from "react-router-dom";
 // import 'bootstrap/dist/css/bootstrap.min.css'; import $ from 'jquery'; import

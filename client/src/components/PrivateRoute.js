@@ -3,12 +3,12 @@ import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
-const PrivateRoute = ({ component: Component, login, ...rest }) => (
+const PrivateRoute = ({ component: Component, login, token, ...rest }) => (
   
   <Route
     {...rest}
     render={props =>
-      login.token !== null ? (
+      localStorage.getItem("token") !== null ? (
         <Component {...props} />
       ) : (
         <Redirect to="/login" />

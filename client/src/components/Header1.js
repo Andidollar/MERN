@@ -20,11 +20,11 @@ class Header extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
                                
-                <NavLink to="/register">Register&nbsp;</NavLink> 
-                <NavLink to="/login">Log in</NavLink>
-                {/* <NavLink to="/login" onClick={() => this.props.logOut()}>
+                {/* <NavLink to="/register">Register&nbsp;</NavLink> 
+                <NavLink to="/login">Log in</NavLink> */}
+                <NavLink to="/login" onClick={() => this.props.logOut()}>
                 Log Out
-                </NavLink> */}
+                </NavLink>
                         </Nav>
             </Navbar.Collapse>
         </Navbar> )
