@@ -13,15 +13,17 @@ export default function loginNow(body) {
                     dispatch(loginSuccess(res.data));
                 })
                 .catch(err => {
-                    console.log(err.response);
-                    dispatch(loginFail(err.response))
+                    console.log(err.response.data);
+                    dispatch(loginFail(err.response.data))
                 });
     }
 }
 
 export function loginSuccess(payload) {
+  console.log("here", payload)
     return {
       type: "LOGIN_SUCCESS",
+      success: true,
       isLoggedIn: true,
       isError: false,
       error: false,
@@ -30,11 +32,13 @@ export function loginSuccess(payload) {
   }
 
   export function loginFail(payload) {
+    console.log(payload)
     return {
       type: "LOGIN_FAIL",
       isLoggedIn: false,
-      error: payload.data,
+      message: payload,
       isError: true,
+      error: true,
       userEmail: null
     };
   }

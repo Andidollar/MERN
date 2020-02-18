@@ -21,6 +21,7 @@ const registerReducer = (state = initState, action) => {
             return {
                 ...state,
                 isRegistered: action.isRegistered,
+                    message: action.message,
                     error: action.error
             };
         default:
@@ -29,6 +30,5 @@ const registerReducer = (state = initState, action) => {
             };
     }
 };
-
 
 export default registerReducer;

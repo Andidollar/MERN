@@ -18,14 +18,13 @@ class Header extends Component {
             <Navbar bg="light" expand="lg">
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                {!this.state.isLoggedIn ? (
-                  <Nav>
+            <Nav className="mr-auto">
+                               
                 <NavLink to="/register">Register&nbsp;</NavLink> 
-                <NavLink to="/login">Log in</NavLink></Nav> ) : (<Nav>
+                <NavLink to="/login">Log in</NavLink>
                 <NavLink to="/login" onClick={() => this.props.logOut()}>
                 Log Out
-                </NavLink></Nav>)}
+                </NavLink>
                         </Nav>
             </Navbar.Collapse>
         </Navbar> )
@@ -50,10 +49,12 @@ const mapDispatchToProps = dispatch => {
   )(Header);
 
 // export default Footer
-
-// {!this.props.isLoggedIn ? ( <Nav className="mr-auto">
-// <NavLink to="/register">Register&nbsp;</NavLink> 
-// <NavLink to="/login">Log in</NavLink> </Nav> ) : null }
-// <NavLink to="/login" onClick={() => this.props.logOut()}>
-// Log Out
-// </NavLink>
+                // <Nav className="mr-auto">
+                // {this.state.isLoggedIn ? (<Nav>
+                // <NavLink to="/login" onClick={() => this.props.logOut()}>
+                // Log Out
+                // </NavLink></Nav>
+                //  ) : (<Nav>
+                // <NavLink to="/register">Register&nbsp;</NavLink> 
+                // <NavLink to="/login">Log in</NavLink></Nav>)}
+                //         </Nav>

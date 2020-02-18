@@ -14,8 +14,8 @@ export default function registerNow(body) {
                     dispatch(registerSuccess(res.data));
                 })
                 .catch(err => {
-                    console.log(err.response);
-                    dispatch(registerFail(err.response))
+                    console.log(err.response.data);
+                    dispatch(registerFail(err.response.data))
                 });
     }
 }
@@ -28,9 +28,13 @@ export function registerSuccess() {
   }
 
   export function registerFail(payload) {
+   console.log(payload)
     return {
       type: "REGISTER_FAIL",
-      error: payload.data,
+      isRegistered: false,
+      error: true,
+      status: 500,
+      message: payload,
       isError: true
     };
   }

@@ -1,4 +1,5 @@
 const initState = {
+    message: "",
     userEmail: "",
     isLoggedIn: false,
     isError: false,
@@ -20,8 +21,9 @@ const loginReducer = (state = initState, action) => {
             return {
                 ...state,
                 isLoggedIn: action.isLoggedIn,
-                    error: action.error,
-                    userEmail: action.userEmail
+                    userEmail: action.userEmail,
+                    message: action.message,
+                    error: action.error
             };
         case "LOG_OUT":
             return {

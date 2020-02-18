@@ -16,10 +16,11 @@ class Register extends Component {
         this.state = {
             picture: '',
             username: '',
+            message: '',
             email: '',
             password: '',
             isError: false,
-            error: '',
+            error: false,
             isRegistered: false
         }
         this.onChange = this
@@ -64,12 +65,17 @@ class Register extends Component {
                         email: this.state.email,
                         password: this.state.password,
                         }
-    this.props.registerNow(body)
+                        console.log(body)
+            this.props.registerNow(body)
         }
     }
 
     errorMessage() {
         return <div>{this.state.error}</div>;
+    }
+    
+    errorMessage1() {
+        return <div>{this.props.register.message}</div>;
     }
 
     isRegistered() {
@@ -82,6 +88,9 @@ class Register extends Component {
 
 
     render() {
+        
+        const {isRegistered, error} = this.props.register
+        
         return (
             <div>
                 <Header/>
@@ -89,12 +98,15 @@ class Register extends Component {
                     <h2 style={{
                         paddingBottom: 10
                     }}>Registration</h2>
-                    {this.state.isRegistered
+                    {isRegistered
                     ? this.isRegistered()
                     : null}
                     {this.state.isError
                         ? this.errorMessage()
-                        : null} 
+                        : null}
+                    {error
+                    ? this.errorMessage1()
+                    : null} 
                         <Form
                     onSubmit={this.onSubmit}
                     style={{
@@ -158,10 +170,10 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log("Redux", state)
     return {
-      isRegistered: state.isRegistered,
-      error: state.error,
-      message: state.message
+    register: state.register,
+    message: state.message
     };
   };
   

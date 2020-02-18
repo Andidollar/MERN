@@ -18,9 +18,10 @@ class Login extends Component {
             email: '',
             password: '',
             isError: false,
-            error: '',
+            error: false,
             isLoggedIn: false,
-            message: ''
+            message: '',
+            success: false,
         }
         this.onChange = this
             .onChange
@@ -69,6 +70,11 @@ class Login extends Component {
             return <div>{this.state.error}</div>
         }
 
+        errorMessage1() {
+        
+            return <div>{this.props.login.message}</div>
+        }
+
     isLoggedIn() {
         return (
             <div>
@@ -78,7 +84,7 @@ class Login extends Component {
     }
 
     render() {
-
+        
         return (
             <div>
                 <Header/>
@@ -86,11 +92,14 @@ class Login extends Component {
                 <h2 style={{
                     paddingBottom: 10
                 }}>Log in</h2>
-                {this.state.isLoggedIn
+                {this.props.login.isLoggedIn
                     ? this.isLoggedIn()
                     : null}
                 {this.state.isError
                     ? this.errorMessage()
+                    : null}
+                    {this.props.login.error
+                    ? this.errorMessage1()
                     : null}
                 <Form
                     onSubmit={this.onSubmit}
@@ -133,8 +142,10 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log('redux', state)
     return {
-      isLoggedIn: state.isLoggedIn,
+        success: state.success,
+      login: state.login,
       error: state.error,
       message: state.message
     };
