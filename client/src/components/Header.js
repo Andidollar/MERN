@@ -1,25 +1,32 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import '../index.css';
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import {logOut} from "../store/actions/loginActions";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        isLoggedIn: false
+    }
+};
     render() {
         return (
             <Navbar bg="light" expand="lg">
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                {!this.props.isLoggedIn ? (
-                        <Link to="/register">Register&nbsp;</Link>
-                        <Link to="/login">Log in</Link> ) : null}
-                        <NavLink to="/login" onClick={() => this.props.logOut()}>
-                        Log Out
-                        </NavLink>
-                </Nav>
+                {!this.state.isLoggedIn ? (
+                  <Nav>
+                <NavLink to="/register">Register&nbsp;</NavLink> 
+                <NavLink to="/login">Log in</NavLink></Nav> ) : (<Nav>
+                <NavLink to="/login" onClick={() => this.props.logOut()}>
+                Log Out
+                </NavLink></Nav>)}
+                        </Nav>
             </Navbar.Collapse>
         </Navbar> )
     }
@@ -43,3 +50,10 @@ const mapDispatchToProps = dispatch => {
   )(Header);
 
 // export default Footer
+
+// {!this.props.isLoggedIn ? ( <Nav className="mr-auto">
+// <NavLink to="/register">Register&nbsp;</NavLink> 
+// <NavLink to="/login">Log in</NavLink> </Nav> ) : null }
+// <NavLink to="/login" onClick={() => this.props.logOut()}>
+// Log Out
+// </NavLink>

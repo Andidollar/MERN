@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
                 .compare(password, user.password)
                 .then(isMatch => {
                     if (!isMatch) 
-                        return res.status(400).send({'Invalid password'})
+                        return res.status(400).send('Invalid password')
                     
                     const payload = {
                         id: user._id,

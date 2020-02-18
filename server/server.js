@@ -25,7 +25,7 @@ app.use('/login', require('./routes/login'));
 //passport middleware
 app.use(passport.initialize());
 //passport configuration
-// app.use(passport.session())
+app.use(passport.session())
 require('./passport')(passport)
 
 
