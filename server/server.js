@@ -28,6 +28,7 @@ app.use(passport.initialize());
 // app.use(passport.session())
 require('./passport')(passport)
 
+
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
     .then(() => console.log('Connection to Mongo DB established'))
     .catch(err => console.log(err));

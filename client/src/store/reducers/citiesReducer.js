@@ -20,5 +20,6 @@ const initState = {
         };
     }
   };
+
   
   export default citiesReducer;

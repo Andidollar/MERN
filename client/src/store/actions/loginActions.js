@@ -1,4 +1,4 @@
-import axios from "axios";
+import Axios from "axios";
 
 export default function loginNow(body) {
     return dispatch => {
@@ -19,13 +19,13 @@ export default function loginNow(body) {
     }
 }
 
-export function loginSuccessful(payload) {
+export function loginSuccess(payload) {
     return {
       type: "LOGIN_SUCCESS",
       isLoggedIn: true,
+      isError: false,
       error: false,
-      userEmail: payload.email,
-      userName: payload.username,
+      userEmail: payload.email
     };
   }
 
@@ -33,22 +33,20 @@ export function loginSuccessful(payload) {
     return {
       type: "LOGIN_FAIL",
       isLoggedIn: false,
-      error: true,
-      userEmail: null,
-      userName: null
+      error: payload.data,
+      isError: true,
+      userEmail: null
     };
   }
 
   export function logOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("userEmail");
-    localStorage.removeItem("userName");
     return {
       type: "LOG_OUT",
       isLoggedIn: false,
       error: false,
-      userEmail: null,
-      userName: null
+      userEmail: null
     };
   }
   

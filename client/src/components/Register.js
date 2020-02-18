@@ -3,12 +3,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Footer from './Footer';
 import Header from './Header';
-import Axios from 'axios';
+// import Axios from 'axios';
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import registerNow from "../store/actions/registerActions";
 // import {Redirect} from 'react-router'
 // import Grid from 'react-css-grid';
 
-export default class Register extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,21 +43,28 @@ export default class Register extends Component {
         } else {
             this.setState({isError: false, error: 'No errors'});
 
-            Axios
-                .post("http://localhost:5000/users", {
-                picture: this.state.picture,
-                username: this.state.username,
-                email: this.state.email,
-                password: this.state.password
-            })
-                .then(res => {
-                    console.log(res);
-                    this.setState({isRegistered: true});
-                })                
-                .catch(err => {
-                    this.setState({isError: true, error: err.response.data});
-                    console.log(err.response);
-                });
+            // Axios
+            //     .post("http://localhost:5000/users", {
+            //     picture: this.state.picture,
+            //     username: this.state.username,
+            //     email: this.state.email,
+            //     password: this.state.password
+            // })
+            //     .then(res => {
+            //         console.log(res);
+            //         this.setState({isRegistered: true});
+            //     })                
+            //     .catch(err => {
+            //         this.setState({isError: true, error: err.response.data});
+            //         console.log(err.response);
+            //     });
+
+            let body = {picture: this.state.picture,
+                        username: this.state.username,
+                        email: this.state.email,
+                        password: this.state.password,
+                        }
+    this.props.registerNow(body)
         }
     }
 
@@ -147,6 +156,19 @@ export default class Register extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      isRegistered: state.isRegistered,
+      error: state.error,
+      message: state.message
+    };
+  };
+  
+  export default connect(
+    mapStateToProps,
+    { registerNow }
+  )(Register);
 
 /* <Form.Group controlId="formBasicPic">
                         <Form.Label>Upload picture</Form.Label>

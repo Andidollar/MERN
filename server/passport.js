@@ -32,8 +32,7 @@ module.exports = passport => {
         // check if user already exists in our own db
         user.findOne({ googleId: profile.id }).then((currentUser) => {
           if (currentUser) {
-            // already have this user
-            console.log('user is: ', currentUser);
+            console.warn("hy", currentUser);
             done(null, currentUser);
           } else {
             // if not, create user in our db
@@ -53,6 +52,7 @@ module.exports = passport => {
     );
 
 
+
 passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
         user.findById(jwt_payload.id)
@@ -67,8 +67,6 @@ passport.use(
   );
 
 }
-
-
 
 // passport.use(new GoogleStrategy({
 //     clientID: '150029950025-5n7jhinq1hdce851mlhql4j1i3n3mm48.apps.googleusercontent.com',

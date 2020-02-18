@@ -4,12 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Footer from './Footer';
 import Header from './Header';
 import {Redirect} from 'react-router-dom';
-import Axios from 'axios';
+import {connect} from "react-redux";
+import loginNow from "../store/actions/loginActions"
+// import Axios from 'axios';
 // import {GoogleLogin} from 'react-google-login';
 // import {googleClientID} from '../GoogleKeys';
 // import {GoogleLoginButton} from "react-social-login-buttons";
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +19,8 @@ export default class Login extends Component {
             password: '',
             isError: false,
             error: '',
-            isLoggedIn: false
+            isLoggedIn: false,
+            message: ''
         }
         this.onChange = this
             .onChange
@@ -41,26 +44,30 @@ export default class Login extends Component {
         } else {
             this.setState({isError: false, error: "no errors."});
 
-            Axios
-                .post("http://localhost:5000/login", {
-                email: this.state.email,
-                password: this.state.password
-            })
-                .then(res => {
-                    console.log(res);
-                    this.setState({isLoggedIn: true});
-                })
-                .catch(err => {
-                    this.setState({isError: true, error: err.response.data});
-                    console.log(err.response);
-                });
+            // Axios
+            //     .post("http://localhost:5000/login", {
+            //     email: this.state.email,
+            //     password: this.state.password
+            // })
+            //     .then(res => {
+            //         console.log(res);
+            //         this.setState({isLoggedIn: true});
+            //     })
+            //     .catch(err => {
+            //         this.setState({isError: true, error: err.response.data});
+            //         console.log(err.response);
+            //     });
+            let body = {email: this.state.email,
+                        password: this.state.password}
+            this.props.loginNow(body)
         }
     }
 
 
     errorMessage() {
-        return <div>{this.state.error}</div>;
-    }
+        
+            return <div>{this.state.error}</div>
+        }
 
     isLoggedIn() {
         return (
@@ -71,24 +78,6 @@ export default class Login extends Component {
     }
 
     render() {
-        // const responseGoogle = (response) => {
-        //     console.log(response);
-        //   }
-           
-        //   ReactDOM.render(
-        //     <GoogleLogin
-        //       clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-        //       buttonText="Login"
-        //       onSuccess={responseGoogle}
-        //       onFailure={responseGoogle}
-        //       cookiePolicy={'single_host_origin'}
-        //     />,
-        //     document.getElementById('googleButton')
-        //   );
-
-    //    const responseGoogle = (response) => {
-    //         console.log(response);
-    //       }
 
         return (
             <div>
@@ -142,6 +131,19 @@ export default class Login extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+      isLoggedIn: state.isLoggedIn,
+      error: state.error,
+      message: state.message
+    };
+  };
+  
+  export default connect(
+    mapStateToProps,
+    { loginNow }
+  )(Login);
 
 
                 /* <GoogleLogin

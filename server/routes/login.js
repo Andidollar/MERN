@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
     if (!email || !password) {
         return res
             .status(400)
-            .json({msg: "Please do not leave fields empty"});
+            .json({message: "Please do not leave fields empty"});
     }
 
     userModel
