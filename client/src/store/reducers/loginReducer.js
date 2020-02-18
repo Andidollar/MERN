@@ -15,7 +15,8 @@ const loginReducer = (state = initState, action) => {
                 ...state,
                 isLoggedIn: action.isLoggedIn,
                     error: action.error,
-                    userEmail: action.userEmail
+                    userEmail: action.userEmail,
+                    token: action.token
             };
         case "LOGIN_FAIL":
             return {

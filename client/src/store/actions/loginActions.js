@@ -10,6 +10,7 @@ export default function loginNow(body) {
                 .then(res => {
                     console.log(res);
                     localStorage.setItem("token", res.data.token);
+                    localStorage.getItem("token")
                     dispatch(loginSuccess(res.data));
                 })
                 .catch(err => {
@@ -27,7 +28,8 @@ export function loginSuccess(payload) {
       isLoggedIn: true,
       isError: false,
       error: false,
-      userEmail: payload.email
+      userEmail: payload.email,
+      token: payload.token
     };
   }
 

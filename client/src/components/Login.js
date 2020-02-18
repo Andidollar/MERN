@@ -22,6 +22,7 @@ class Login extends Component {
             isLoggedIn: false,
             message: '',
             success: false,
+            token: ''
         }
         this.onChange = this
             .onChange
@@ -147,7 +148,8 @@ const mapStateToProps = state => {
         success: state.success,
       login: state.login,
       error: state.error,
-      message: state.message
+      message: state.message,
+      token: state.token
     };
   };
   

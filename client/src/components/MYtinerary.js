@@ -6,6 +6,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Footer from './Footer';
+import Header from './Header';
 import '../index.css';
 // import Itineraries from './children/Itineraries'; 
 import { Link } from "react-router-dom";
@@ -53,7 +54,7 @@ export class MYtinerary extends Component {
           <b> Duration (hours): </b>{itinerary.duration}
           <b> Price (€): </b>{itinerary.price}<br></br>
           <b> Tags: </b>{itinerary.hashtags}</p>
-        
+          
           <Accordion defaultActiveKey="0">
           <Card>
           <Card.Header>
@@ -88,6 +89,7 @@ export class MYtinerary extends Component {
         return (
 
             <div>
+            <Header/>
               {itineraries}
              <p className='links' style={{marginTop: 10}}><Link to="/cities">Choose another city</Link></p>
              <Footer></Footer>

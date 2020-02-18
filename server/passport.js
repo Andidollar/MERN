@@ -8,21 +8,20 @@ const opts = {};
 const passport = require("passport");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
 
-passport.deserializeUser((id, done) => {
-  user.findById(id).then((user) => {
-    done(null, user);
-  });
-});
+// passport.deserializeUser((id, done) => {
+//   user.findById(id).then((user) => {
+//     done(null, user);
+//   });
+// });
 
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = key.secretOrKey;
 
-module.exports = passport => {
-    passport.use(
+module.exports = passport.use(
       new GoogleStrategy({
         // options for google strategy
         clientID: key.googleClientID,
@@ -53,7 +52,7 @@ module.exports = passport => {
 
 
 
-passport.use(
+    module.exports = passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
         user.findById(jwt_payload.id)
         .then(user => {
@@ -66,7 +65,7 @@ passport.use(
     })
   );
 
-}
+
 
 // passport.use(new GoogleStrategy({
 //     clientID: '150029950025-5n7jhinq1hdce851mlhql4j1i3n3mm48.apps.googleusercontent.com',

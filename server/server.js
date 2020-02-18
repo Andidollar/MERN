@@ -26,7 +26,7 @@ app.use('/login', require('./routes/login'));
 app.use(passport.initialize());
 //passport configuration
 app.use(passport.session())
-require('./passport')(passport)
+require('./passport')
 
 
 mongoose.connect(db, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })

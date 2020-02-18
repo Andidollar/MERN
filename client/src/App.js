@@ -4,6 +4,9 @@ import Login from './components/Login';
 import Landing from './components/Landing';
 import FetchCities from './components/FetchCities';
 import MYtinerary from './components/MYtinerary';
+import PrivateRoute from './components/PrivateRoute';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+// import PrivateRoute from 'react-private-route'
 // import { MemoryRouter } from 'react-router';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
@@ -25,10 +28,10 @@ class App extends Component {
           <Route exact path='/cities/city:id' component={ MYtinerary } />
           </Switch> */}
           <Switch>
-            <Route exact path='/cities' component={ FetchCities } />
+            <PrivateRoute exact path='/cities' component={ FetchCities } />
           </Switch>
           <Switch>
-            <Route exact path='/cities/:id/itinerary' component={ MYtinerary } />
+            <PrivateRoute exact path='/cities/:id/itinerary' component={ MYtinerary } />
           </Switch>
           <Switch>
             <Route exact path='/register' component={ Register } />

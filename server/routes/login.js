@@ -91,15 +91,17 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
             expiresIn: 2592000
         },
         (err, token) => {
-            res.json({
-                user,
-                success: true,
-                token,
-            });
+            // res.json({
+            //     user,
+            //     success: true,
+            //     token,
+            // });
+            res.redirect('/?code=' + token);
+
         }
     );
     //redirect to front-end
-    //res.redirect('/');
+    res.redirect('/?code=' + token);
 });
 
 
