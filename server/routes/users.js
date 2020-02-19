@@ -3,7 +3,7 @@ const router = express.Router()
 const userModel = require('../model/userModel')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const passport = require("passport");
+// const passport = require("passport");
 
 router.get('/all', (req, res) => {
     userModel
@@ -14,6 +14,7 @@ router.get('/all', (req, res) => {
         .catch(err => console.log(err))
 });
 
+// register user
 router.post('/', function (req, res) {
     bcrypt
         .hash(req.body.password, saltRounds, function (err, hash) {

@@ -5,8 +5,10 @@ import Cities from './children/Cities';
 import {fetchAll} from '../store/actions/cityActions';
 // import {fetchItineraries} from '../store/actions/itineraryActions';
 import {connect} from "react-redux";
-import Footer from './Footer'
-import Header from './Header1'
+import Footer from './Footer';
+import Header from './Header1';
+// import jwt_decode from 'jwt-decode';
+// const jwtDecode = require('jwt-decode');
 // import home from '../media/homeIcon.png';
 // import {Link} from "react-router-dom";
 // import 'bootstrap/dist/css/bootstrap.min.css'; import $ from 'jquery'; import
@@ -18,7 +20,8 @@ export class FetchCities extends Component {
         super(props);
         this.state = {
             cities: [],
-            input: ''
+            input: '',
+            username: ''
         }
     };
 
@@ -44,8 +47,11 @@ export class FetchCities extends Component {
             console.log(this.state)
             this.setState({input: e.target.value})
 
+            // const jwtToken = localStorage.getItem("token");
+            // const decode = jwtToken.jwt_decode;
+            // console.log("decode", decode)
         }
-
+        
         return (
             <div>
                 <Header />
@@ -75,7 +81,7 @@ export class FetchCities extends Component {
 
 }
 const mapStateToProps = state => {
-    console.log(state)
+    console.log("redux", state)
     return {cities: state.cities};
 };
 

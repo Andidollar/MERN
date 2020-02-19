@@ -38,7 +38,6 @@ module.exports = passport.use(
             new user({
               googleId: profile.id,
               name: profile.displayName,
-              img: profile.photos[0].value,
               oAuth: true,
               email: profile.emails[0].value,
             }).save().then((newUser) => {

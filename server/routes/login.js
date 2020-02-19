@@ -96,12 +96,17 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
             //     success: true,
             //     token,
             // });
-            res.redirect('/?code=' + token);
+            res.redirect('localhost:3000/cities/?code=' + token);
+            // res.send({token})
+            // localStorage.getItem('bearer' + token)
 
         }
     );
     //redirect to front-end
-    res.redirect('/?code=' + token);
+    //res.redirect('/?code=' + token);
+    // localStorage.setItem("token", res.data.token)
+    
+    // window.localStorage.setItem('bearer' + token)
 });
 
 

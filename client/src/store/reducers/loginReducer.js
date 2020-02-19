@@ -5,7 +5,8 @@ const initState = {
     isError: false,
     error: false,
     isLoaded: false,
-    token: ''
+    token: '',
+    username: ''
 };
 
 const loginReducer = (state = initState, action) => {
@@ -16,7 +17,7 @@ const loginReducer = (state = initState, action) => {
                 ...state,
                 isLoggedIn: action.isLoggedIn,
                     error: action.error,
-                    userEmail: action.userEmail,
+                    username: action.username,
                     token: action.token
             };
         case "LOGIN_FAIL":

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Footer from './Footer';
 import Header from './Header';
-import {Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import loginNow from "../store/actions/loginActions"
 // import Axios from 'axios';
@@ -22,7 +22,8 @@ class Login extends Component {
             isLoggedIn: false,
             message: '',
             success: false,
-            token: ''
+            token: '',
+            username: ''
         }
         this.onChange = this
             .onChange
@@ -79,7 +80,8 @@ class Login extends Component {
     isLoggedIn() {
         return (
             <div>
-                <Redirect to="/cities"/>
+                <p>Welcome {this.props.login.username}</p>
+                <Link to="/cities"><p>Go to MYtinerary</p></Link>
             </div>
         );
     }

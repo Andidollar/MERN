@@ -18,7 +18,19 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  googleId: {
+  type: String,
+  default: null
+  },
+  name: {
+    type: String,
+    default: null
+  },
+  favourites: {
+    type: Array
   }
+              
 });
 
 userSchema.plugin(uniqueValidator)
