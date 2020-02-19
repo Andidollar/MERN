@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // const passport = require("passport");
 
+
+// get all users
 router.get('/all', (req, res) => {
     userModel
         .find({})
@@ -42,6 +44,112 @@ router.post('/', function (req, res) {
                 })
         });
 });
+
+// get user by ID
+
+router.get('/id/:id',
+    (req, res) => {
+        console.log('req :', req);
+        const { id } = req.params
+        userModel.findOne({ _id: id })
+            .then(response => {
+                const userDetails = Object.assign({}, response._doc);
+                delete userDetails.password;
+                res.json(userDetails);
+            })
+            .catch(err => res.status(404).json({ error: "User does not exist!" }));
+    }
+);
+
+/*add  itinerary to user favorites*/
+router.post('/addToFavorite',
+    /* Uncomment next line to add web token athentification */
+    //passport.authenticate("jwt", { session: false }),
+    (req, res) => {
+        userModel.findOne({ _id: req.user.id })
+            .then(user => {
+
+                let currentFavItineraries = user.favourites.filter(oneFavItin => oneFavItin.itineraryId === req.body.itineraryId)
+
+                if (currentFavItineraries.length !== 0) {
+                    res
+                        .status(400)
+                        .json({ error: "User already liked this itinerary!" });
+                } else {
+                    itineraryModel.findOne({ _id: req.body.itineraryId })
+                        .then(itinerary => {
+                            // console.log(itinerary)
+                            user.favourites.push({
+                                itineraryId: req.body.itineraryId,
+                                name: itinerary.title,
+                                cityId: itinerary.city
+                            });
+
+                            user
+                                .save()
+                                .then(userFavItin => res.json(user.favourites))
+                                .catch(err => {
+                                    res
+                                        .status(500)
+                                        .json({ error: 'The itinerary could not be saved' })
+                                })
+                        })
+                        .catch(err => {
+                            res
+                                .status(404)
+                                .json({ error: 'Cannot find the itinerary with this id!' })
+                        })
+                }
+            })
+            .catch(err => {
+                res
+                    .status(404)
+                    .json({ error: 'User not found' })
+            })
+    }
+);
+
+/*remove itinerary from user favorites*/
+router.post('/removeFromFavorite',
+    (req, res) => {
+        userModel.findOne({ _id: req.user.id })
+            .then(user => {
+
+                let currentFavItineraries = user.favourites.filter(oneFavItin =>
+                    oneFavItin.itineraryId === req.body.itineraryId)
+                if (currentFavItineraries.length === 0) {
+                    res
+                        .status(400)
+                        .json({ error: "User did not like this itinerary!" });
+                }
+                itineraryModel.findOne({ _id: req.body.itineraryId })
+                    .then(itinerary => {
+                        const indexItinToRemove = user.favourities.map(oneFavItin =>
+                            oneFavItin.itineraryId).indexOf(req.body.itineraryId);
+                        console.log(indexItinToRemove)
+                        user.favourites.splice(indexItinToRemove, 1);
+                        user
+                            .save()
+                            .then(userFavItin => res.json(user.favourites))
+                            .catch(err => {
+                                res
+                                    .status(500)
+                                    .json({ error: 'There was a saving error' })
+                            })
+                    })
+                    .catch(err => {
+                        res
+                            .status(404)
+                            .json({ error: 'Cannot find the itinerary with this id!' })
+                    })
+            })
+            .catch(err => {
+                res
+                    .status(404)
+                    .json({ error: 'User not found' })
+            })
+    }
+);
 
 module.exports = router
 
