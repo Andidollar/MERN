@@ -46,12 +46,11 @@ router.post('/', function (req, res) {
 });
 
 // get user by ID
-
 router.get('/id/:id',
     (req, res) => {
         console.log('req :', req);
         const { id } = req.params
-        userModel.findOne({ _id: id })
+        userModel.findOne({ username: id })
             .then(response => {
                 const userDetails = Object.assign({}, response._doc);
                 delete userDetails.password;
@@ -61,10 +60,8 @@ router.get('/id/:id',
     }
 );
 
-/*add  itinerary to user favorites*/
+// add  itinerary to user favorites
 router.post('/addToFavorite',
-    /* Uncomment next line to add web token athentification */
-    //passport.authenticate("jwt", { session: false }),
     (req, res) => {
         userModel.findOne({ _id: req.user.id })
             .then(user => {
@@ -80,7 +77,7 @@ router.post('/addToFavorite',
                         .then(itinerary => {
                             // console.log(itinerary)
                             user.favourites.push({
-                                itineraryId: req.body.itineraryId,
+                                itineraryId: req.body.itineraryId, //I don't get this!
                                 name: itinerary.title,
                                 cityId: itinerary.city
                             });
@@ -109,7 +106,7 @@ router.post('/addToFavorite',
     }
 );
 
-/*remove itinerary from user favorites*/
+// remove itinerary from user favorites
 router.post('/removeFromFavorite',
     (req, res) => {
         userModel.findOne({ _id: req.user.id })

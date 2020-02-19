@@ -85,7 +85,6 @@ export class MYtinerary extends Component {
      }
 
     render() {
-        console.log('where', this.props.itineraries)
         // const itineraries = [];
         const itineraries = this.mapItinerary()
         return (
@@ -100,6 +99,7 @@ export class MYtinerary extends Component {
     }
 }
 const mapStateToProps = state => {
+    console.log('redux MY', state)
     return {itineraries: state.itineraries};
 };
 
