@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import React from 'react';
 import Axios from 'axios';
 import {connect} from "react-redux";
-import FetchCities from './FetchCities';
+import loginNow from "../store/actions/loginActions"
 
 class LikeButton extends React.Component {
     constructor(props) {
@@ -20,13 +20,31 @@ class LikeButton extends React.Component {
     /* Get user by :ID, post itinerary (but specific) to this user's favourites, remove from favourites, 
     button needs to check if this itinerary is part of the favourites*/
     handleClick() {
-      const {username} = this.props.login
+      // const {username} = this.props.login
         this.setState({
-            liked: !this.state.liked
+            liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
         });
+        // let axios0 = ("http://localhost:5000/users/id/" + username)
+        // let axios1 = "http://localhost:5000/users/addToFavorite"
+        // let axios1 = "http://localhost:5000/users/removeFromFavorite"
+
+        // const request0 = axios.get(axios0)
+        // const request1 = axios.post(axios1)
+        // const request2 = axios.post(axios2)
+
+        // axios.all([request0, request1, request2]).then(axios.spread((...responses) => {
+        //   const response0 = responses[0]
+        //   const response1 = responses[1]
+        //   const respones2 = responses[2]
+        // use/access the results 
+        // })).catch(errors => {
+         // react on errors.
+        // })
+
+        let {username} = this.state.username
         Axios
-            .get("http://localhost:5000/users/id/:id", {
-            username: username
+            .get(("http://localhost:5000/users/id/" + username), {
+            // username: 'andidollar'
         })
             
             .then(res => {
@@ -40,7 +58,7 @@ class LikeButton extends React.Component {
     }
 
     render() {
-      console.log("Username", this.state.login)
+      console.log("Username", this.state.username)
         // const text = this.state.liked ? 'liked' : 'haven\'t liked';
         const label = this.state.liked
             ? 'Unlike'
@@ -63,10 +81,10 @@ class LikeButton extends React.Component {
 
 const mapStateToProps = state => {
   console.log("Buttonredux", state)
-  return {cities: state.cities,
-          unsername: state.username};
+  return {cityId: state.cityId,
+          username: state.username};
 };
 
 // export default FetchCities
 
-export default connect(mapStateToProps, {FetchCities})(LikeButton);
+export default connect(mapStateToProps, {loginNow})(LikeButton);

@@ -81,7 +81,7 @@ export class FetchCities extends Component {
 
 }
 const mapStateToProps = state => {
-    console.log("redux", state)
+    console.log("Cityredux", state)
     return {cities: state.cities};
 };
 
