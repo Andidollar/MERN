@@ -18,59 +18,82 @@ class LikeButton extends React.Component {
             .bind(this);
     }
 
-    
-    /* Get user by :ID, find itinerary, post itinerary to this user's favourites, remove from favourites, 
-    button needs to check if this itinerary is part of the favourites*/
-    handleClick() {
-      // const {username} = this.props.login
-        this.setState({
-            liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
-        });
-        // let axios0 = "http://localhost:5000/users/id/test123"
-        // let axios1 = "http://localhost:5000/users/addToFavorite"
-        // let axios1 = "http://localhost:5000/users/removeFromFavorite"
-
-        // const request0 = axios.get(axios0)
-        // const request1 = axios.post(axios1)
-        // const request2 = axios.post(axios2)
-
-        // Axios.all([request0, request1, request2]).then(axios.spread((...responses) => {
-        //   const response0 = responses[0]
-        //   const response1 = responses[1]
-        //   const respones2 = responses[2]
-        // use/access the results 
-        // })).catch(errors => {
-         // react on errors.
-        console.log("click")
-          let {username} = this.props.login
-          let itineraryId = this.props.itineraryId
-          console.log('itineraryId', itineraryId)
-
-          let body = JSON.stringify({
-            itineraryId, 
-            username
-        })
-        console.log('body', body)
-        Axios.post("http://localhost:5000/users/addToFavorite", 
-        {
-        itineraryId, 
-        username
-    })
-            
+    componentDidMount() {
+        let {username} = this.props.login
+        Axios
+            .get("http://localhost:5000/users/id/" + username)
             .then(res => {
-                console.log("fav", res);
+                console.log("XXXXX", res.data.favourites)
+                const favourites = res.data.favourites;
+                this.setState({ favourites })
+                // if (res.data.favourites.itineraryId !== null) {
+                //     this.setState({
+                //         liked: this.state.liked
+                //     })
+                // }
             })
             .catch(err => {
                 console.log(err.response);
+            })}
+
+            
+
+    /* Get user by :ID, find itinerary, post itinerary to this user's favourites, remove from favourites,
+    button needs to check if this itinerary is part of the favourites*/
+    handleClick(e) {
+        // console.log('favourites', this.state.favourites[0].itineraryId)
+        let {username} = this.props.login
+        let itineraryId = this.props.itineraryId
+        // let itineryIdState = this.state.favourites
+        //map oder for loop
+        // let i;
+        // for (i = 0; i < this.state.favourites.length; i++) {
+        //         if (this.state.favourites[i].itineraryId = this.props.itineraryId ) {
+        //             this.setState({
+        //                 liked: true
+        //             })
+        //         } else {
+        //             setState({
+        //                 liked: false
+        //             })
+        //         }
+        // }
+
+        // e.preventDefault();
+        // if (this.state.favourites[0].itineraryId === itineraryId) {
+        //     this.setState({liked: this.state.liked});
+        // } else {
+        //     this.setState({liked: !this.state.liked});
+        // }
+            this.setState({
+                liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
             });
+        // let itineraryId = this.props.itineraryId
+        console.log('itineraryId', itineraryId)
+
+        // let body = JSON.stringify({itineraryId, username})
+        // console.log('body', body)
+        if (!this.state.liked) {
+            Axios
+                .post("http://localhost:5000/users/addToFavorite", {itineraryId, username})
+                .then(res => {
+                    console.log("fav", res);
+                })
+                .catch(err => {
+                    console.log(err.response);
+                });
+        } else {
+            Axios.post("http://localhost:5000/users/removeFromFavorite", {itineraryId, username})
+        }
     }
 
     render() {
-      console.log("Username", this.props)
+        // console.log("RENDER", this.state)
         // const text = this.state.liked ? 'liked' : 'haven\'t liked';
         const label = this.state.liked
             ? 'Unlike'
             : 'Like'
+            
         return (
             <div className="customContainer">
                 <Button
@@ -87,14 +110,11 @@ class LikeButton extends React.Component {
     }
 }
 
-// LikeButton.propTypes = {
-//     login: PropTypes.object.isRequired
-//   };
+// LikeButton.propTypes = {     login: PropTypes.object.isRequired   };
 
 const mapStateToProps = state => {
-  console.log("Buttonredux", state)
-  return {cityId: state.cityId,
-          login: state.login};
+    console.log("Buttonredux", state)
+    return {cityId: state.cityId, login: state.login};
 };
 
 // export default FetchCities

@@ -25,7 +25,7 @@ PrivateRoute.propTypes = {
 };
 
   const mapStateToProps = state => {
-    console.log('redux', state)
+    // console.log('redux', state)
     return {
       login: state.login
     };

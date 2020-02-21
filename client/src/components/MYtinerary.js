@@ -7,7 +7,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Footer from './Footer';
 import Header from './Header1';
-import LikeButton from './LikeButton'
+import LikeButton from './LikeButton';
+// import Axios from 'axios';
 import '../index.css';
 // import Itineraries from './children/Itineraries'; 
 import { Link } from "react-router-dom";
@@ -20,7 +21,8 @@ export class MYtinerary extends Component {
         super(props);
         this.state = {
             itineraries: [],
-            activities: []
+            activities: [],
+            username: ''
         }
     }
 
@@ -28,8 +30,27 @@ export class MYtinerary extends Component {
         console.log(this.props.match.params.id)
         this
             .props
-            .fetchItineraries(this.props.match.params.id)
+            .fetchItineraries(this.props.match.params.id);
+
+            // let {username} = this.props.login
+            // console.log('this.props.login', this.props.login)
+            // Axios
+            //     .get("http://localhost:5000/users/id/" + username)
+            //     .then(res => {
+            //         console.log("XXXXX", res)
+            //         const favourites = res.data.favourites;
+            //         this.setState({ favourites })
+            //         // if (res.data.favourites.itineraryId !== null) {
+            //         //     this.setState({
+            //         //         liked: this.state.liked
+            //         //     })
+            //         // }
+            //     })
+            //     .catch(err => {
+            //         console.log(err.response);
+            //     })
     }
+
 
     mapItinerary = () => {
       return this
@@ -51,7 +72,8 @@ export class MYtinerary extends Component {
                 marginRight: 'auto',
                 paddingBottom: 10
           }}/> 
-          {/* Get favoruties, if favourites are in it, include boolerian inside like unlike*/}
+          {/* Get user favourites, if favourites are in it, include boolerian inside like unlike*/}
+          
           <LikeButton itineraryId={itinerary._id}/>
           <p><b>Rating: </b>{itinerary.rating}
           <b> Duration (hours): </b>{itinerary.duration}
@@ -87,6 +109,7 @@ export class MYtinerary extends Component {
 
     render() {
         // const itineraries = [];
+        // localStorage.setItem("token", this.props.login.token)
         const itineraries = this.mapItinerary()
         return (
 
@@ -101,7 +124,7 @@ export class MYtinerary extends Component {
 }
 const mapStateToProps = state => {
     console.log('redux MY', state)
-    return {itineraries: state.itineraries};
+    return {itineraries: state.itineraries, login: state.login};
 };
 
 export default connect(mapStateToProps, {fetchItineraries})(MYtinerary);

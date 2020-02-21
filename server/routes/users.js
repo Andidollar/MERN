@@ -49,7 +49,7 @@ router.post('/', function (req, res) {
 // get user by ID
 router.get('/id/:id',
     (req, res) => {
-        console.log('req :', req);
+        // console.log('req :', req);
         const { id } = req.params
         userModel.findOne({ username: id })
             .then(response => {
@@ -64,23 +64,23 @@ router.get('/id/:id',
 // add  itinerary to user favorites
 router.post('/addToFavorite',
     (req, res) => {
-        console.log('req.body', req.body)
+        // console.log('req.body', req.body)
         userModel.findOne({ username: req.body.username })
             .then(user => {
-console.log('user', user)
+            // console.log('user', user)
                 let currentFavItineraries = user.favourites.filter(oneFavItin => oneFavItin.itineraryId === req.body.itineraryId)
 
                 if (currentFavItineraries.length !== 0) {
-                    console.log('currentFavItineraries', currentFavItineraries)
+                    // console.log('currentFavItineraries', currentFavItineraries)
                     res
                         .status(400)
                         .json({ error: "User already liked this itinerary!" });
                 } else {
                     itineraryModel.findOne({ _id: req.body.itineraryId })
                         .then(itinerary => {
-                            console.log(itinerary)
+                            // console.log(itinerary)
                             user.favourites.push({
-                                itineraryId: req.body.itineraryId, //I don't get this!
+                                itineraryId: req.body.itineraryId, 
                                 title: itinerary.title,
                                 cityId: itinerary.city_id
                             });
@@ -112,11 +112,12 @@ console.log('user', user)
 // remove itinerary from user favorites
 router.post('/removeFromFavorite',
     (req, res) => {
-        userModel.findOne({ _id: req.user.id })
+        userModel.findOne({ username: req.body.username })
             .then(user => {
-
+                // console.log('user', user)
                 let currentFavItineraries = user.favourites.filter(oneFavItin =>
                     oneFavItin.itineraryId === req.body.itineraryId)
+                    // console.log('currentFavItineraries', currentFavItineraries)
                 if (currentFavItineraries.length === 0) {
                     res
                         .status(400)
@@ -124,10 +125,12 @@ router.post('/removeFromFavorite',
                 }
                 itineraryModel.findOne({ _id: req.body.itineraryId })
                     .then(itinerary => {
-                        const indexItinToRemove = user.favourities.map(oneFavItin =>
-                            oneFavItin.itineraryId).indexOf(req.body.itineraryId);
-                        console.log(indexItinToRemove)
-                        user.favourites.splice(indexItinToRemove, 1);
+                        // console.log('itinerary', itinerary)
+                        user.favourites.pop({
+                            itineraryId: req.body.itineraryId, 
+                            title: itinerary.title,
+                            cityId: itinerary.city_id
+                        });
                         user
                             .save()
                             .then(userFavItin => res.json(user.favourites))
@@ -143,15 +146,20 @@ router.post('/removeFromFavorite',
                             .json({ error: 'Cannot find the itinerary with this id!' })
                     })
             })
-            .catch(err => {
-                res
-                    .status(404)
-                    .json({ error: 'User not found' })
-            })
+            // .catch(err => {
+            //     res
+            //         .status(404)
+            //         .json({ error: 'User not found' })
+            // })
     }
 );
 
 module.exports = router
+
+// const indexItinToRemove = user.favourities.map(oneFavItin =>
+//     oneFavItin.itineraryId).indexOf(req.body.itineraryId);
+// console.log('indexItinToRemove', indexItinToRemove)
+// user.favourites.splice(indexItinToRemove, 1);
 
 //      .then(function(user) {       if (user) {       res.send(user);       }
 //   }).catch(err => {         res.status(500).send("Username already taken")})
