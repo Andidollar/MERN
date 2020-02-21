@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userModel = require('../model/userModel')
+const itineraryModel = require('../model/itineraryModel')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // const passport = require("passport");
@@ -63,19 +64,21 @@ router.get('/id/:id',
 // add  itinerary to user favorites
 router.post('/addToFavorite',
     (req, res) => {
-        userModel.findOne({ _id: req.user.id })
+        console.log('req.body', req.body)
+        userModel.findOne({ username: req.body.username })
             .then(user => {
-
+console.log('user', user)
                 let currentFavItineraries = user.favourites.filter(oneFavItin => oneFavItin.itineraryId === req.body.itineraryId)
 
                 if (currentFavItineraries.length !== 0) {
+                    console.log('currentFavItineraries', currentFavItineraries)
                     res
                         .status(400)
                         .json({ error: "User already liked this itinerary!" });
                 } else {
                     itineraryModel.findOne({ _id: req.body.itineraryId })
                         .then(itinerary => {
-                            // console.log(itinerary)
+                            console.log(itinerary)
                             user.favourites.push({
                                 itineraryId: req.body.itineraryId, //I don't get this!
                                 title: itinerary.title,
@@ -98,11 +101,11 @@ router.post('/addToFavorite',
                         })
                 }
             })
-            .catch(err => {
-                res
-                    .status(404)
-                    .json({ error: 'User not found' })
-            })
+            // .catch(err => {
+            //     res
+            //         .status(404)
+            //         .json({ error: 'User not found' })
+            // })
     }
 );
 

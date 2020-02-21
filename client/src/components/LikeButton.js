@@ -2,14 +2,16 @@ import Button from 'react-bootstrap/Button';
 import React from 'react';
 import Axios from 'axios';
 import {connect} from "react-redux";
-import loginNow from "../store/actions/loginActions"
+import loginNow from "../store/actions/loginActions";
+// import PropTypes from "prop-types";
 
 class LikeButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             liked: false,
-            username: ''
+            username: '',
+            itineraryId: this.props.itineraryId
         };
         this.handleClick = this
             .handleClick
@@ -17,14 +19,14 @@ class LikeButton extends React.Component {
     }
 
     
-    /* Get user by :ID, post itinerary (but specific) to this user's favourites, remove from favourites, 
+    /* Get user by :ID, find itinerary, post itinerary to this user's favourites, remove from favourites, 
     button needs to check if this itinerary is part of the favourites*/
     handleClick() {
       // const {username} = this.props.login
         this.setState({
             liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
         });
-        // let axios0 = ("http://localhost:5000/users/id/" + username)
+        // let axios0 = "http://localhost:5000/users/id/test123"
         // let axios1 = "http://localhost:5000/users/addToFavorite"
         // let axios1 = "http://localhost:5000/users/removeFromFavorite"
 
@@ -32,33 +34,39 @@ class LikeButton extends React.Component {
         // const request1 = axios.post(axios1)
         // const request2 = axios.post(axios2)
 
-        // axios.all([request0, request1, request2]).then(axios.spread((...responses) => {
+        // Axios.all([request0, request1, request2]).then(axios.spread((...responses) => {
         //   const response0 = responses[0]
         //   const response1 = responses[1]
         //   const respones2 = responses[2]
         // use/access the results 
         // })).catch(errors => {
          // react on errors.
-        // })
+        console.log("click")
+          let {username} = this.props.login
+          let itineraryId = this.props.itineraryId
+          console.log('itineraryId', itineraryId)
 
-        let {username} = this.state.username
-        Axios
-            .get(("http://localhost:5000/users/id/" + username), {
-            // username: 'andidollar'
+          let body = JSON.stringify({
+            itineraryId, 
+            username
         })
+        console.log('body', body)
+        Axios.post("http://localhost:5000/users/addToFavorite", 
+        {
+        itineraryId, 
+        username
+    })
             
             .then(res => {
-                console.log(res);
-                this.setState({isLoggedIn: true});
+                console.log("fav", res);
             })
             .catch(err => {
-                this.setState({isError: true, error: err.response.data});
                 console.log(err.response);
             });
     }
 
     render() {
-      console.log("Username", this.state.username)
+      console.log("Username", this.props)
         // const text = this.state.liked ? 'liked' : 'haven\'t liked';
         const label = this.state.liked
             ? 'Unlike'
@@ -79,10 +87,14 @@ class LikeButton extends React.Component {
     }
 }
 
+// LikeButton.propTypes = {
+//     login: PropTypes.object.isRequired
+//   };
+
 const mapStateToProps = state => {
   console.log("Buttonredux", state)
   return {cityId: state.cityId,
-          username: state.username};
+          login: state.login};
 };
 
 // export default FetchCities

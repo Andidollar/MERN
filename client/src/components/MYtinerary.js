@@ -50,8 +50,9 @@ export class MYtinerary extends Component {
                 marginLeft: 'auto',
                 marginRight: 'auto',
                 paddingBottom: 10
-          }}/>
-          <LikeButton/>
+          }}/> 
+          {/* Get favoruties, if favourites are in it, include boolerian inside like unlike*/}
+          <LikeButton itineraryId={itinerary._id}/>
           <p><b>Rating: </b>{itinerary.rating}
           <b> Duration (hours): </b>{itinerary.duration}
           <b> Price (€): </b>{itinerary.price}<br></br>

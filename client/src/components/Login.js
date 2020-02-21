@@ -23,7 +23,8 @@ class Login extends Component {
             message: '',
             success: false,
             token: '',
-            username: ''
+            username: '',
+            _id: ''
         }
         this.onChange = this
             .onChange
@@ -87,7 +88,6 @@ class Login extends Component {
     }
 
     render() {
-        
         return (
             <div>
                 <Header/>
@@ -151,7 +151,9 @@ const mapStateToProps = state => {
       login: state.login,
       error: state.error,
       message: state.message,
-      token: state.token
+      token: state.token,
+      username: state.username,
+      _id: state._id
     };
   };
   
