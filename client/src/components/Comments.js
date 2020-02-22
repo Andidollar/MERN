@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import Axios from 'axios';
 
 class Comments extends Component {
     constructor(props) {
@@ -14,15 +15,24 @@ class Comments extends Component {
     }
     onChangeComment(e) {
       this.setState({
-        comment: e.target.value
+        comment: e.target.value,
+        username: ''
       });
     }
   
     onSubmit(e) {
       e.preventDefault();
-      console.log(`The values are ${this.state.comment}`)
+       Axios
+                .post("http://localhost:5000/comments/add", {
+                comment: this.state.comment,
+                username: this.props.login.username
+            })
+            .then(res => console.log(res.data));
+      // console.log(`The values are ${this.props.login.username}, ${this.state.comment}`)
+      
       this.setState({
-        comment: ''
+        comment: '',
+        username: ''
       })
     }
    
@@ -31,12 +41,20 @@ class Comments extends Component {
             <div style={{ marginTop: 10 }}>
                 <h2>Comments</h2>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
+                <div className="form-group">
                         <label>Add comment</label>
+                        <input 
+                          type="hidden" 
+                          className="form-control" 
+                          value={this.props.login.username}
+                          onChange={this.onChangeComment}
+                          />
+                    </div>
+                    <div className="form-group">
                         <input 
                           type="text" 
                           className="form-control" 
-                          value={this.state.comment} 
+                          value={this.state.comment}
                           onChange={this.onChangeComment}
                           />
                     </div>

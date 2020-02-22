@@ -101,7 +101,7 @@ export class MYtinerary extends Component {
           </Accordion.Collapse>
           </Card>   
           </Accordion><br></br>
-          <Comments/>
+          <Comments itineraryId={itinerary._id}/>
       </div>]
       }
         )
