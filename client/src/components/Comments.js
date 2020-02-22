@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Axios from 'axios';
 
+
 class Comments extends Component {
     constructor(props) {
         super(props);
@@ -23,13 +24,14 @@ class Comments extends Component {
     onSubmit(e) {
       e.preventDefault();
       const itineraryId = this.props.itineraryId
+      const obj = {
+        comment: this.state.comment,
+        username: this.props.login.username,
+        itineraryId
+      }
       console.log('itineraryId', itineraryId)
        Axios
-                .post("http://localhost:5000/comments/add", {
-                comment: this.state.comment,
-                username: this.props.login.username,
-                itineraryId
-            })
+                .post("http://localhost:5000/comments/add", obj)
             .then(res => console.log(res.data));
       // console.log(`The values are ${this.props.login.username}, ${this.state.comment}`)
 

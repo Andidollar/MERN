@@ -9,6 +9,7 @@ import Footer from './Footer';
 import Header from './Header1';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import Index from './CommentsIndex'
 // import Axios from 'axios';
 import '../index.css';
 // import Itineraries from './children/Itineraries'; 
@@ -102,6 +103,7 @@ export class MYtinerary extends Component {
           </Card>   
           </Accordion><br></br>
           <Comments itineraryId={itinerary._id}/>
+          <Index/>
       </div>]
       }
         )

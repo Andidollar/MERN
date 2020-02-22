@@ -5,6 +5,9 @@ import Landing from './components/Landing';
 import FetchCities from './components/FetchCities';
 import MYtinerary from './components/MYtinerary';
 import PrivateRoute from './components/PrivateRoute';
+import Comments from './components/Comments';
+import Edit from './components/CommentsEdit';
+import Index from './components/CommentsIndex';
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // import PrivateRoute from 'react-private-route'
 // import { MemoryRouter } from 'react-router';
@@ -39,6 +42,11 @@ class App extends Component {
           <Switch>
             <Route exact path='/login' component={ Login } />
           </Switch>
+          <Switch>
+            <Route exact path='/create' component={ Comments } />
+              <Route path='/edit/:id' component={ Edit } />
+              <Route path='/index' component={ Index } />
+              </Switch>
         </div>
       </BrowserRouter>
     );
