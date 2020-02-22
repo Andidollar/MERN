@@ -22,17 +22,21 @@ class Comments extends Component {
   
     onSubmit(e) {
       e.preventDefault();
+      const itineraryId = this.props.itineraryId
+      console.log('itineraryId', itineraryId)
        Axios
                 .post("http://localhost:5000/comments/add", {
                 comment: this.state.comment,
-                username: this.props.login.username
+                username: this.props.login.username,
+                itineraryId
             })
             .then(res => console.log(res.data));
       // console.log(`The values are ${this.props.login.username}, ${this.state.comment}`)
-      
+
       this.setState({
         comment: '',
-        username: ''
+        username: '',
+        itineraryId: this.props.itineraryId
       })
     }
    

@@ -13,11 +13,12 @@ router.get('/all', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-    const newComment = new commentModel({username: req.body.username, comment: req.body.comment});
+    const newComment = new commentModel({username: req.body.username, comment: req.body.comment, itineraryId: req.body.itineraryId});
     newComment
         .save()
         .then(comment => {
             res.send(comment)
+       .push ({itineraryId: req.body.itineraryId})
         })
         .catch(err => {
             res
