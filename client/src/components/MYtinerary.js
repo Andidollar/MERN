@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Footer from './Footer';
 import Header from './Header1';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
 // import Axios from 'axios';
 import '../index.css';
 // import Itineraries from './children/Itineraries'; 
@@ -79,7 +80,6 @@ export class MYtinerary extends Component {
           <b> Duration (hours): </b>{itinerary.duration}
           <b> Price (€): </b>{itinerary.price}<br></br>
           <b> Tags: </b>{itinerary.hashtags}</p>
-          
           <Accordion defaultActiveKey="0">
           <Card>
           <Card.Header>
@@ -101,7 +101,7 @@ export class MYtinerary extends Component {
           </Accordion.Collapse>
           </Card>   
           </Accordion><br></br>
-          
+          <Comments/>
       </div>]
       }
         )
