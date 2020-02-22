@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import React from 'react';
 import Axios from 'axios';
 import {connect} from "react-redux";
-import loginNow from "../store/actions/loginActions";
+// import loginNow from "../store/actions/loginActions";
 // import PropTypes from "prop-types";
 
 class LikeButton extends React.Component {
@@ -26,53 +26,32 @@ class LikeButton extends React.Component {
                 console.log("XXXXX", res.data.favourites)
                 const favourites = res.data.favourites;
                 this.setState({ favourites })
-                // if (res.data.favourites.itineraryId !== null) {
-                //     this.setState({
-                //         liked: this.state.liked
-                //     })
-                // }
             })
             .catch(err => {
                 console.log(err.response);
             })}
 
-            
-
-    /* Get user by :ID, find itinerary, post itinerary to this user's favourites, remove from favourites,
-    button needs to check if this itinerary is part of the favourites*/
-    handleClick(e) {
-        // console.log('favourites', this.state.favourites[0].itineraryId)
+    /* Check if user has favourites, post/remove from favourites*/
+    handleClick() {
+        console.log('favourites', this.state.favourites)
         let {username} = this.props.login
-        let itineraryId = this.props.itineraryId
-        // let itineryIdState = this.state.favourites
-        //map oder for loop
-        // let i;
-        // for (i = 0; i < this.state.favourites.length; i++) {
-        //         if (this.state.favourites[i].itineraryId = this.props.itineraryId ) {
-        //             this.setState({
-        //                 liked: true
-        //             })
-        //         } else {
-        //             setState({
-        //                 liked: false
-        //             })
-        //         }
-        // }
+        const itineraryId = this.props.itineraryId
+       
 
-        // e.preventDefault();
-        // if (this.state.favourites[0].itineraryId === itineraryId) {
-        //     this.setState({liked: this.state.liked});
-        // } else {
-        //     this.setState({liked: !this.state.liked});
-        // }
+        // const Id = this.props.itineraryId
+        // console.log('Id', Id)
+        // this.state.favourites.forEach(function (favourite) {
+        //     if (favourite.itineraryId !== itineraryId) {
+        //         this.setState(prevstate => ({ yourstate: !prevstate.yourstate}))
+        //     }
+            
+        // });
             this.setState({
                 liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
             });
-        // let itineraryId = this.props.itineraryId
         console.log('itineraryId', itineraryId)
 
-        // let body = JSON.stringify({itineraryId, username})
-        // console.log('body', body)
+        
         if (!this.state.liked) {
             Axios
                 .post("http://localhost:5000/users/addToFavorite", {itineraryId, username})
@@ -88,8 +67,7 @@ class LikeButton extends React.Component {
     }
 
     render() {
-        // console.log("RENDER", this.state)
-        // const text = this.state.liked ? 'liked' : 'haven\'t liked';
+        
         const label = this.state.liked
             ? 'Unlike'
             : 'Like'
@@ -110,13 +88,44 @@ class LikeButton extends React.Component {
     }
 }
 
-// LikeButton.propTypes = {     login: PropTypes.object.isRequired   };
-
 const mapStateToProps = state => {
     console.log("Buttonredux", state)
     return {cityId: state.cityId, login: state.login};
 };
 
-// export default FetchCities
+export default connect(mapStateToProps)(LikeButton);
+// console.log("RENDER", this.state)
+        // const text = this.state.liked ? 'liked' : 'haven\'t liked';
+// let body = JSON.stringify({itineraryId, username})
+        // console.log('body', body)
 
-export default connect(mapStateToProps, {loginNow})(LikeButton);
+// if (res.data.favourites.itineraryId !== null) {
+                //     this.setState({
+                //         liked: this.state.liked
+                //     })
+                // }
+// LikeButton.propTypes = {     login: PropTypes.object.isRequired   };
+ // let itineryIdState = this.state.favourites
+        //map oder for loop
+        // let i;
+        // for (i = 0; i < this.state.favourites.length; i++) {
+        //         if (this.state.favourites[i].itineraryId = this.props.itineraryId ) {
+        //             this.setState({
+        //                 liked: true
+        //             })
+        //         } else {
+        //             setState({
+        //                 liked: false
+        //             })
+        //         }
+        // }
+        // this.state.favourites.forEach(function (favourite) {
+        //     console.log('favourite', favourite)
+            
+        // });
+        // e.preventDefault();
+        // if (this.state.favourites[0].itineraryId === itineraryId) {
+        //     this.setState({liked: this.state.liked});
+        // } else {
+        //     this.setState({liked: !this.state.liked});
+        // }
