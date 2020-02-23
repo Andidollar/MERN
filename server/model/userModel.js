@@ -2,9 +2,8 @@ const mongoose = require("mongoose");
 const uniqueValidator = require('mongoose-unique-validator'); //duplicates omitted
 
 const userSchema = new mongoose.Schema({
-    picture: {
-    type: String,
-    required: true
+  picture: {
+    type: String
   },
   username: {
     type: String,
@@ -20,17 +19,15 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   googleId: {
-  type: String,
-  default: null
+    type: String
   },
-  name: {
-    type: String,
-    default: null
+  oAuth: {
+    type: Boolean
   },
   favourites: {
     type: Array
   }
-              
+
 });
 
 userSchema.plugin(uniqueValidator)

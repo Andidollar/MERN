@@ -80,13 +80,14 @@ export class FetchCities extends Component {
         this
             .props
             .fetchAll()
-            
+        //     console.log('this.props', this.props)
+        // localStorage.setItem("token", this.props.login.token)
     }
 
 }
 const mapStateToProps = state => {
     console.log("Cityredux", state)
-    return {cities: state.cities};
+    return {cities: state.cities, login: state.login};
 };
 
 // export default FetchCities

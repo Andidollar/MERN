@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const commentModel = require('../model/commentModel')
+const mongoose = require("mongoose");
+// mongoose.set('useFindAndModify', false);
 
 // get all comments
 router.get('/all', (req, res) => {
@@ -23,7 +25,7 @@ router.post('/add', (req, res) => {
         .catch(err => {
             res
                 .status(400)
-                .send("unable to save to database");
+                .json({msg: "Unable to save"});
         });
 });
 
@@ -46,14 +48,14 @@ router.post('/update/:id', (req, res) => {
     commentModel
     .findOne(({_id: id}), function(err, commentModel) {
     if (!commentModel)
-      res.status(404).send("data is not found");
+      res.status(404).json({msg: "Data not found"});
     else {
         commentModel.comment = req.body.comment
         commentModel.save().then(business => {
           res.json('Update complete');
       })
       .catch(err => {
-            res.status(400).send("unable to update the database");
+            res.status(400).json({msg: "Cannot update"});
       });
     }
   });
@@ -62,10 +64,13 @@ router.post('/update/:id', (req, res) => {
 // Defined delete | remove | destroy route
 router.get('/delete/:id', (req, res) => {
     let {id} = req.params;
-    commentModel.findOneAndRemove(({_id: id}), function(err, commentModel){
+    commentModel.findOneAndDelete(({_id: id}), function(err, commentModel){
         if(err) res.json(err);
         else res.json('Successfully removed');
-    });
+    })
+    .catch(err => {
+        res.status(400).send("cannot delete comment");
+  });
 });
 
 // Comments businessRoutes = router, let business = commentModel Defined store

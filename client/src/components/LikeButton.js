@@ -39,8 +39,9 @@ class LikeButton extends React.Component {
             this.setState({
                 liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
             });
-        console.log('itineraryId', itineraryId)
-
+        // console.log('itineraryId', itineraryId)
+        // const { itineraryId, liked, onLikeChange} = this.props
+        // onLikeChange(itineraryId, !liked)
         
         if (this.state.liked === false) {
             Axios
@@ -71,6 +72,7 @@ class LikeButton extends React.Component {
                     backgroundColor: '#23aa4e',
                     borderColor: '#177d37'
                 }}  
+                    
                     onClick={this.handleClick}>
                     {label}</Button>
 

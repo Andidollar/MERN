@@ -30,20 +30,25 @@ module.exports = passport.use(
       }, (accessToken, refreshToken, profile, done) => {
         // check if user already exists in our own db
         user.findOne({ googleId: profile.id }).then((currentUser) => {
+          console.log('currentUser', currentUser)
           if (currentUser) {
             console.warn("hy", currentUser);
             done(null, currentUser);
           } else {
             // if not, create user in our db
-            new user({
+            new userModel({
               googleId: profile.id,
-              name: profile.displayName,
+              username: profile.displayName,
               oAuth: true,
               email: profile.emails[0].value,
-            }).save().then((newUser) => {
-              console.log('created new user: ', newUser);
-              done(null, newUser);
-            });
+            })
+            console.log(newUser)
+
+            newUser
+                .save()
+                .then(user => {
+                    res.send(user)
+                })
           }
         });
       })

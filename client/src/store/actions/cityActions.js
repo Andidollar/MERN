@@ -9,6 +9,7 @@ fetch('http://localhost:5000/cities/all')
     })
     console.log(data)
     console.log({cities: data})
+    // localStorage.setItem("token", this.props.login.token)
     // this.setState({cities: data})
 })
 .catch(console.log)}

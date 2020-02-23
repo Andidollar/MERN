@@ -22,7 +22,7 @@ class Login extends Component {
             isLoggedIn: false,
             message: '',
             success: false,
-            token: '',
+            // token: '',
             username: '',
             _id: ''
         }
@@ -154,7 +154,7 @@ const mapStateToProps = state => {
       login: state.login,
       error: state.error,
       message: state.message,
-      token: state.token,
+    //   token: state.token,
       username: state.username,
       _id: state._id
     };

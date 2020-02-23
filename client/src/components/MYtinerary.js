@@ -71,13 +71,12 @@ export class MYtinerary extends Component {
                 marginRight: 'auto',
                 paddingBottom: 10
           }}/> 
-          {console.log('this.state.favourites', this.props.favourites)}
-          {/* <LikeButton 
-            itineraryId={itineray._id} 
-            liked={this.state.favorites.includes(itinerary._id)}
-            onLikeChange={onLikeChange} if this works, I can also use it for the comments (axios all, plus includes)
-            /> */} 
-          <LikeButton itineraryId={itinerary._id} />
+
+            <LikeButton 
+            itineraryId={itinerary._id} 
+            // liked={!this.state.favourites.find(({ itineraryId}) => itineraryId === itinerary._id)}
+            // onLikeChange={this.onLikeChange}
+            />
           <p><b>Rating: </b>{itinerary.rating}
           <b> Duration (hours): </b>{itinerary.duration}
           <b> Price (€): </b>{itinerary.price}<br></br>
