@@ -12,6 +12,7 @@ class Table extends Component {
         Axios.get('http://localhost:5000/comments/delete/'+this.props.obj._id)
             .then(console.log('Deleted'))
             .catch(err => console.log(err))
+            window.location.reload();
     }
   render() {
     return (

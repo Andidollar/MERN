@@ -18,41 +18,31 @@ class LikeButton extends React.Component {
             .bind(this);
     }
 
-    componentDidMount() {
-        let {username} = this.props.login
-        Axios
-            .get("http://localhost:5000/users/id/" + username)
-            .then(res => {
-                console.log("XXXXX", res.data.favourites)
-                const favourites = res.data.favourites;
-                this.setState({ favourites })
-            })
-            .catch(err => {
-                console.log(err.response);
-            })}
+    // componentDidMount() {
+    //     let {username} = this.props.login
+    //     Axios
+    //         .get("http://localhost:5000/users/id/" + username)
+    //         .then(res => {
+    //             console.log("XXXXX", res.data.favourites)
+    //             const favourites = res.data.favourites;
+    //             this.setState({ favourites })
+    //         })
+    //         .catch(err => {
+    //             console.log(err.response);
+    //         })}
 
     /* Check if user has favourites, post/remove from favourites*/
     handleClick() {
-        console.log('favourites', this.state.favourites)
+        // console.log('favourites', this.state.favourites)
         let {username} = this.props.login
         const itineraryId = this.props.itineraryId
-       
-
-        // const Id = this.props.itineraryId
-        // console.log('Id', Id)
-        // this.state.favourites.forEach(function (favourite) {
-        //     if (favourite.itineraryId !== itineraryId) {
-        //         this.setState(prevstate => ({ yourstate: !prevstate.yourstate}))
-        //     }
-            
-        // });
             this.setState({
                 liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
             });
         console.log('itineraryId', itineraryId)
 
         
-        if (!this.state.liked) {
+        if (this.state.liked === false) {
             Axios
                 .post("http://localhost:5000/users/addToFavorite", {itineraryId, username})
                 .then(res => {
@@ -65,9 +55,10 @@ class LikeButton extends React.Component {
             Axios.post("http://localhost:5000/users/removeFromFavorite", {itineraryId, username})
         }
     }
+    
 
     render() {
-        
+        // onLikeChange(this.props.itineraryId, !this.props.liked)
         const label = this.state.liked
             ? 'Unlike'
             : 'Like'
@@ -79,7 +70,7 @@ class LikeButton extends React.Component {
                     style={{
                     backgroundColor: '#23aa4e',
                     borderColor: '#177d37'
-                }}
+                }}  
                     onClick={this.handleClick}>
                     {label}</Button>
 
@@ -108,7 +99,7 @@ export default connect(mapStateToProps)(LikeButton);
  // let itineryIdState = this.state.favourites
         //map oder for loop
         // let i;
-        // for (i = 0; i < this.state.favourites.length; i++) {
+        // for (let i = 0; i < this.state.favourites.length; i++) {
         //         if (this.state.favourites[i].itineraryId = this.props.itineraryId ) {
         //             this.setState({
         //                 liked: true
@@ -129,3 +120,12 @@ export default connect(mapStateToProps)(LikeButton);
         // } else {
         //     this.setState({liked: !this.state.liked});
         // }
+
+        // const Id = this.props.itineraryId
+        // console.log('Id', Id)
+        // this.state.favourites.forEach(function (favourite) {
+        //     if (favourite.itineraryId !== itineraryId) {
+        //         this.setState(prevstate => ({ yourstate: !prevstate.yourstate}))
+        //     }
+            
+        // });

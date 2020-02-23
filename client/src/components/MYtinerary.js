@@ -10,7 +10,7 @@ import Header from './Header1';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
 import Index from './CommentsIndex'
-// import Axios from 'axios';
+import Axios from 'axios'
 import '../index.css';
 // import Itineraries from './children/Itineraries'; 
 import { Link } from "react-router-dom";
@@ -34,27 +34,24 @@ export class MYtinerary extends Component {
             .props
             .fetchItineraries(this.props.match.params.id);
 
-            // let {username} = this.props.login
-            // console.log('this.props.login', this.props.login)
-            // Axios
-            //     .get("http://localhost:5000/users/id/" + username)
-            //     .then(res => {
-            //         console.log("XXXXX", res)
-            //         const favourites = res.data.favourites;
-            //         this.setState({ favourites })
-            //         // if (res.data.favourites.itineraryId !== null) {
-            //         //     this.setState({
-            //         //         liked: this.state.liked
-            //         //     })
-            //         // }
-            //     })
-            //     .catch(err => {
-            //         console.log(err.response);
-            //     })
+            let {username} = this.props.login
+            Axios
+                .get("http://localhost:5000/users/id/" + username)
+                .then(res => {
+                    console.log("XXXXX", res.data.favourites)
+                    const favourites = res.data.favourites;
+                    this.setState({ favourites })
+                })
+                .catch(err => {
+                    console.log(err.response);
+                })
+                
+           
     }
-
+// onLikeChange(this.props.itineraryId, !this.props.liked)
 
     mapItinerary = () => {
+        
       return this
       .props
       .itineraries
@@ -74,9 +71,13 @@ export class MYtinerary extends Component {
                 marginRight: 'auto',
                 paddingBottom: 10
           }}/> 
-          {/* Get user favourites, if favourites are in it, include boolerian inside like unlike*/}
-          
-          <LikeButton itineraryId={itinerary._id}/>
+          {console.log('this.state.favourites', this.props.favourites)}
+          {/* <LikeButton 
+            itineraryId={itineray._id} 
+            liked={this.state.favorites.includes(itinerary._id)}
+            onLikeChange={onLikeChange} if this works, I can also use it for the comments (axios all, plus includes)
+            /> */} 
+          <LikeButton itineraryId={itinerary._id} />
           <p><b>Rating: </b>{itinerary.rating}
           <b> Duration (hours): </b>{itinerary.duration}
           <b> Price (€): </b>{itinerary.price}<br></br>
@@ -130,3 +131,22 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {fetchItineraries})(MYtinerary);
+
+
+ // let {username} = this.props.login
+            // console.log('this.props.login', this.props.login)
+            // Axios
+            //     .get("http://localhost:5000/users/id/" + username)
+            //     .then(res => {
+            //         console.log("XXXXX", res)
+            //         const favourites = res.data.favourites;
+            //         this.setState({ favourites })
+            //         // if (res.data.favourites.itineraryId !== null) {
+            //         //     this.setState({
+            //         //         liked: this.state.liked
+            //         //     })
+            //         // }
+            //     })
+            //     .catch(err => {
+            //         console.log(err.response);
+            //     }) 

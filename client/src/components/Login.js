@@ -64,6 +64,7 @@ class Login extends Component {
             let body = {email: this.state.email,
                         password: this.state.password}
             this.props.loginNow(body)
+            localStorage.getItem("token")
         }
     }
 
@@ -77,12 +78,14 @@ class Login extends Component {
         
             return <div>{this.props.login.message}</div>
         }
-
+/* Token here???? */
     isLoggedIn() {
         return (
             <div>
                 <p>Welcome {this.props.login.username}</p>
                 <Link to="/cities"><p>Go to MYtinerary</p></Link>
+                
+                
             </div>
         );
     }

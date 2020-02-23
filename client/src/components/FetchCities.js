@@ -16,6 +16,7 @@ import Header from './Header1';
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 export class FetchCities extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -39,6 +40,7 @@ export class FetchCities extends Component {
     }
 
     render() {
+        
         const {isLoaded} = this.props.cities
         const cities = this.filterCities()
 
@@ -46,13 +48,14 @@ export class FetchCities extends Component {
             console.log(e)
             console.log(this.state)
             this.setState({input: e.target.value})
-
+            // localStorage.setItem("token", this.props.login.token)
             // const jwtToken = localStorage.getItem("token");
             // const decode = jwtToken.jwt_decode;
             // console.log("decode", decode)
         }
         
         return (
+            
             <div>
                 <Header />
                 <div className="search">
@@ -77,6 +80,7 @@ export class FetchCities extends Component {
         this
             .props
             .fetchAll()
+            
     }
 
 }

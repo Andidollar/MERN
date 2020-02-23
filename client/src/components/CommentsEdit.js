@@ -21,6 +21,7 @@ export default class Edit extends Component {
           .catch(function (error) {
               console.log(error);
           })
+
     }
 
   onChangeComment(e) {

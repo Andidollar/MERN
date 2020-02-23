@@ -81,8 +81,8 @@ router.post('/addToFavorite',
                             // console.log(itinerary)
                             user.favourites.push({
                                 itineraryId: req.body.itineraryId, 
-                                title: itinerary.title,
-                                cityId: itinerary.city_id
+                                // title: itinerary.title,
+                                // cityId: itinerary.city_id
                             });
 
                             user

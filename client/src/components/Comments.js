@@ -34,7 +34,7 @@ class Comments extends Component {
                 .post("http://localhost:5000/comments/add", obj)
             .then(res => console.log(res.data));
       // console.log(`The values are ${this.props.login.username}, ${this.state.comment}`)
-
+      window.location.reload();
       this.setState({
         comment: '',
         username: '',

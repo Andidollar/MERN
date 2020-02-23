@@ -13,7 +13,7 @@ export default function loginNow(body) {
                     localStorage.setItem("token", res.data.token);
                     const decoded = jwt_decode(res.data.token);
                   
-                    localStorage.getItem("token")
+                    // localStorage.getItem("token")
                     dispatch(loginSuccess(res.data, decoded));
                 })
                 .catch(err => {

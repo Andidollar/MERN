@@ -13,7 +13,7 @@ export default class Index extends Component {
       Axios.get('http://localhost:5000/comments/all')
         .then(res => {
           
-          // console.log('resonse.data', res.data)
+          console.log('response.data', res.data)
           // const allComments = res.data;
           this.setState({ all: res.data });
         })
