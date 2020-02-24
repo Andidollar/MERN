@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const commentModel = require('../model/commentModel')
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 // mongoose.set('useFindAndModify', false);
 
 // get all comments
@@ -20,14 +20,13 @@ router.post('/add', (req, res) => {
         .save()
         .then(comment => {
             res.send(comment)
-       .push ({itineraryId: req.body.itineraryId})
         })
-        .catch(err => {
-            res
-                .status(400)
-                .json({msg: "Unable to save"});
-        });
+        // .then(comment => {
+        //  res.body.push({itineraryId: req.body.itineraryId})
+        // })
+        .catch(err => console.log(err))
 });
+
 
 // Defined edit route
 router.get('/edit/:id', (req, res) => {
