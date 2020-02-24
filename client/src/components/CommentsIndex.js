@@ -8,20 +8,27 @@ class Index extends Component {
   constructor(props) {
       super(props);
       this.state = {all: [],
-      itineraries: []};
+      itineraries: [],
+    comments: []};
     }
+
     componentDidMount(){
+      // console.log('this.props.itineraries', this.props.itineraries)
       Axios.get('http://localhost:5000/comments/all')
         .then(res => {
           
           // console.log('response.data', res.data)
           // const allComments = res.data;
-          this.setState({ all: res.data });
+          const comments = res.data.filter((comment) => comment.itineraryId === this.props.itineraryId)
+        console.log('comments', comments)
+        this.setState({comments: comments})
+        //  this.setState({ all: res.data });
           // console.log('this.props.itinerariesA', itineraries)
         })
         .catch(function (error) {
           console.log(error);
         })
+      
     }
     tabRow(){
       // console.log('this.props.itineraries', this.props.itineraries)
@@ -46,15 +53,23 @@ class Index extends Component {
 //     <div key={city._id}>
 
     render() {
+
+
         // console.log('allComments', allComments)
         // const comments = this.mapComments()
         // console.log('this.state.allComments', this.state.allComments)
+        
+        
       return (
        
          
           <table className="table table-striped" style={{ marginTop: 20 }}>
             <tbody>
-              { this.tabRow() }
+              {this.state.comments.map((comment, index) => {return (
+              
+                  <Table  key={index} comment={comment}></Table>
+              
+              )})}
               </tbody>
           </table>
        

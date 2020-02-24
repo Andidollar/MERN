@@ -9,22 +9,22 @@ class Table extends Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-        Axios.get('http://localhost:5000/comments/delete/'+this.props.obj._id)
+        Axios.get('http://localhost:5000/comments/delete/'+this.props.comment._id)
             .then(console.log('Deleted'))
             .catch(err => console.log(err))
             window.location.reload();
     }
   render() {
     return (
-        <tr key={this.props.obj.itineraryId}>
+        <tr>
         <td><b>
-            {this.props.obj.username}</b>
+            {this.props.comment.username}</b>
           </td>
           <td>
-            {this.props.obj.comment}
+            {this.props.comment.comment}
           </td>
           <td>
-          <Link to={"/edit/"+this.props.obj._id} className="btn btn-primary">Edit</Link>
+          <Link to={"/edit/"+this.props.comment._id} className="btn btn-primary">Edit</Link>
           </td>
           <td>
           <button onClick={this.delete} className="btn btn-danger">Delete</button>

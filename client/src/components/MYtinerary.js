@@ -54,7 +54,7 @@ export class MYtinerary extends Component {
             Axios
                 .get("http://localhost:5000/users/id/" + decoded.username)
                 .then(res => {
-                    // console.log("XXXXX", res.data.favourites)
+                    console.log("XXXXX", res.data.favourites)
                     const favourites = res.data.favourites;
                     this.setState({ favourites })
                     
@@ -62,6 +62,7 @@ export class MYtinerary extends Component {
                 .catch(err => {
                     console.log(err.response);
                 })
+                console.log('this.props.itinerar', this.props.itinerar)
 
                 // Axios.get('http://localhost:5000/comments/all')
                 // .then(res => {
@@ -74,8 +75,6 @@ export class MYtinerary extends Component {
                 // .catch(function (error) {
                 //   console.log(error);
                 // })
-                
-           
     }
     // favourites() {
         
@@ -135,13 +134,13 @@ export class MYtinerary extends Component {
           </Accordion.Collapse>
           </Card>   
           </Accordion><br></br>
-          {/* {console.log("this.state.comments", this.props.comments)} */}
+          {console.log("this.state.comments", this.state.comments)}
           <Comments 
           itineraryId={itinerary._id}
         //visible={this.state.comments.includes(itinerary._id)}
-            //visible={this.state.comments.find(({ itineraryId }) => itineraryId === itinerary._id)}
+            visible={this.state.comments.filter(({ itineraryId }) => itineraryId === itinerary._id)}
           />
-          <Index/>
+          <Index itineraryId={itinerary._id} />
       </div>]
       }
         )
