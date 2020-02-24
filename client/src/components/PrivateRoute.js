@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 const PrivateRoute = ({ component: Component, ...rest }) => (
   
   <div>
-    
       {/* {localStorage.setItem("token", window.location.search.split("=")[1])} */}
   <Route
     {...rest}

@@ -25,9 +25,10 @@ class App extends Component {
   
 
   render() {
-      localStorage.getItem("token") !== null ? 
-      localStorage.getItem("token") :
-      localStorage.setItem("token", window.location.search.split("=")[1])
+      if (localStorage.getItem("token") !== null) {
+      localStorage.getItem("token")}
+      else if (window.location.search.includes("?code")) {
+      localStorage.setItem("token", window.location.search.split("=")[1])}
     
   // localStorage.setItem("token", window.location.search.split("=")[1]) check if the token, decode and store
     return (

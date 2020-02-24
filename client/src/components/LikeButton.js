@@ -3,6 +3,7 @@ import React from 'react';
 import Axios from 'axios';
 import {connect} from "react-redux";
 import jwt_decode from "jwt-decode";
+// import {useForceUpdate} from "./children/useForceUpdate"
 // import loginNow from "../store/actions/loginActions";
 // import PropTypes from "prop-types";
 
@@ -26,7 +27,7 @@ class LikeButton extends React.Component {
         const itineraryId = this.props.itineraryId
 
             this.setState({
-                liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
+                liked: !this.state.liked
             });
 
             const decoded = jwt_decode(localStorage.token)
@@ -34,8 +35,9 @@ class LikeButton extends React.Component {
         const username = decoded.username
         // const { liked, onLikeChange} = this.props
         // onLikeChange(itineraryId, !liked)
+
         
-        if (this.state.liked === false) {
+        if (!this.state.liked) {
             Axios
                 .post("http://localhost:5000/users/addToFavorite", {itineraryId, username})
                 .then(res => {
@@ -43,7 +45,7 @@ class LikeButton extends React.Component {
                 })
                 .catch(err => {
                     console.log(err.response);
-                    // window.location.reload();
+                    
                 });
         } else {
             Axios.post("http://localhost:5000/users/removeFromFavorite", {itineraryId, username})
@@ -52,15 +54,15 @@ class LikeButton extends React.Component {
             })
             .catch(err => {
                 console.log(err.response);
-                // window.location.reload();
+            
             })
         }
     }
     
 
     render() {
-        console.log('LIKE', this.state.liked)
-        
+        // console.log('LIKE', this.state.liked)
+        // this.forceUpdate()
         // onLikeChange(this.props.itineraryId, !this.props.liked)
         const label = this.state.liked
             ? 'Unlike'

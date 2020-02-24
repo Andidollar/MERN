@@ -19,7 +19,6 @@ import { Link } from "react-router-dom";
 import React, {Component} from 'react'
 
 export class MYtinerary extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -79,10 +78,11 @@ export class MYtinerary extends Component {
                 marginRight: 'auto',
                 paddingBottom: 10
           }}/> 
-            
+            {console.log("aöslkjfdlöfkf", this.state)}
             <LikeButton 
             itineraryId={itinerary._id} 
             liked={this.state.favourites.find(({ itineraryId}) => itineraryId === itinerary._id)}
+            // label={this.forceUpdate()}
             // liked={!this.state.favourites.filter(({ itineraryId }) => { return itineraryId === itinerary._id ? true : false})}
             // onLikeChange={this.onLikeChange}
             />
@@ -129,6 +129,7 @@ export class MYtinerary extends Component {
         const itineraries = this.mapItinerary()
         
         return (
+            
             <div>  
             <Header/>
               {itineraries}
