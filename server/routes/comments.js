@@ -73,6 +73,17 @@ router.get('/delete/:id', (req, res) => {
   });
 });
 
+router.get('/:id', (req, res) => {
+    let {id} = req.params;
+    commentModel
+        .find({itineraryId: id})
+        .then(files => {
+            res.send(files)
+        })
+        .catch(err => console.log(err))
+});
+
+
 // Comments businessRoutes = router, let business = commentModel Defined store
 // route businessRoutes.route('/add').post(function (req, res) {     let
 // business = new Business(req.body);     business.save()       .then(business

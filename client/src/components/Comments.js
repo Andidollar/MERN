@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import Axios from 'axios';
-
+import jwt_decode from "jwt-decode";
 
 class Comments extends Component {
     constructor(props) {
@@ -24,12 +24,14 @@ class Comments extends Component {
     onSubmit(e) {
       e.preventDefault();
       const itineraryId = this.props.itineraryId
+      const decoded = jwt_decode(localStorage.token)
+      // console.log('localStorag.tokenXXXXXX', decoded)
       const obj = {
         comment: this.state.comment,
-        username: this.props.login.username,
+        username: decoded.username,
         itineraryId
       }
-      console.log('itineraryId', itineraryId)
+      // console.log('itineraryId', itineraryId)
        Axios
                 .post("http://localhost:5000/comments/add", obj)
             .then(res => console.log(res.data));
@@ -74,7 +76,7 @@ class Comments extends Component {
   }
 
 const mapStateToProps = state => {
-    console.log("CommentsRedux", state)
+    // console.log("CommentsRedux", state)
     return {login: state.login};
 };
 

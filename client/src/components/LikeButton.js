@@ -30,7 +30,7 @@ class LikeButton extends React.Component {
             });
 
             const decoded = jwt_decode(localStorage.token)
-            console.log('decoded', decoded)
+            // console.log('decoded', decoded)
         const username = decoded.username
         // const { liked, onLikeChange} = this.props
         // onLikeChange(itineraryId, !liked)
@@ -75,7 +75,7 @@ class LikeButton extends React.Component {
 }
 
 const mapStateToProps = state => {
-    console.log("Buttonredux", state)
+    // console.log("Buttonredux", state)
     return {cityId: state.cityId, login: state.login};
 };
 

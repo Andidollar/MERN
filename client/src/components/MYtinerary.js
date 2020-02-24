@@ -28,7 +28,8 @@ export class MYtinerary extends Component {
             username: '',
             favourites: [],
             token: '',
-            isLoggedIn: true
+            isLoggedIn: true,
+            comments: []
         }
     }
 
@@ -49,11 +50,11 @@ export class MYtinerary extends Component {
             const decoded = jwt_decode(localStorage.token)
             // console.log('decoded', decoded)
             // let {username} = this.props.login
-            console.log('this.props.loing', this.props.login)
+            // console.log('this.props.loing', this.props.login)
             Axios
                 .get("http://localhost:5000/users/id/" + decoded.username)
                 .then(res => {
-                    console.log("XXXXX", res.data.favourites)
+                    // console.log("XXXXX", res.data.favourites)
                     const favourites = res.data.favourites;
                     this.setState({ favourites })
                     
@@ -61,6 +62,18 @@ export class MYtinerary extends Component {
                 .catch(err => {
                     console.log(err.response);
                 })
+
+                // Axios.get('http://localhost:5000/comments/all')
+                // .then(res => {
+                  
+                // //   console.log('COMMMMMENTTSSS', res.data)
+                //   const comments = res.data;
+                //   this.setState({ comments });
+                //   console.log('comments', comments)
+                // })
+                // .catch(function (error) {
+                //   console.log(error);
+                // })
                 
            
     }
@@ -90,7 +103,7 @@ export class MYtinerary extends Component {
                 marginRight: 'auto',
                 paddingBottom: 10
           }}/> 
-            {console.log("this.state.favourites", this.state.favourites)}
+            
             <LikeButton 
             itineraryId={itinerary._id} 
             liked={!!this.state.favourites.find(({ itineraryId}) => itineraryId === itinerary._id)}
@@ -122,7 +135,12 @@ export class MYtinerary extends Component {
           </Accordion.Collapse>
           </Card>   
           </Accordion><br></br>
-          <Comments itineraryId={itinerary._id}/>
+          {/* {console.log("this.state.comments", this.props.comments)} */}
+          <Comments 
+          itineraryId={itinerary._id}
+        //visible={this.state.comments.includes(itinerary._id)}
+            //visible={this.state.comments.find(({ itineraryId }) => itineraryId === itinerary._id)}
+          />
           <Index/>
       </div>]
       }

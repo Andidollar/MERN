@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Table from './Table';
+import {connect} from "react-redux";
 
-
-export default class Index extends Component {
+class Index extends Component {
 
   constructor(props) {
       super(props);
-      this.state = {all: []};
+      this.state = {all: [],
+      itineraries: []};
     }
     componentDidMount(){
       Axios.get('http://localhost:5000/comments/all')
         .then(res => {
           
-          console.log('response.data', res.data)
+          // console.log('response.data', res.data)
           // const allComments = res.data;
           this.setState({ all: res.data });
+          // console.log('this.props.itinerariesA', itineraries)
         })
         .catch(function (error) {
           console.log(error);
         })
     }
     tabRow(){
+      // console.log('this.props.itineraries', this.props.itineraries)
       return this.state.all.map(function(object, i){
           return <Table obj={object} key={i} />;
       });
@@ -58,3 +61,10 @@ export default class Index extends Component {
       )
     }
 }
+
+const mapStateToProps = state => {
+  console.log("CommentsIndexRedux", state)
+  return {login: state.login};
+};
+
+export default connect(mapStateToProps)(Index);
