@@ -9,8 +9,9 @@ import Footer from './Footer';
 import Header from './Header1';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
-import Index from './CommentsIndex'
-import Axios from 'axios'
+import Index from './CommentsIndex';
+import Axios from 'axios';
+import jwt_decode from "jwt-decode";
 import '../index.css';
 // import Itineraries from './children/Itineraries'; 
 import { Link } from "react-router-dom";
@@ -24,23 +25,38 @@ export class MYtinerary extends Component {
         this.state = {
             itineraries: [],
             activities: [],
-            username: ''
+            username: '',
+            favourites: [],
+            token: '',
+            isLoggedIn: true
         }
     }
 
+    // decoded() {
+    //     console.log('localStorage', localStorage.token)
+    //     // const token = localStorage.getItem("token");
+    //     const decoded = jwt_decode(localStorage.token)
+    //     console.log('decoded', decoded)
+    //     // dispatchEvent(decoded)
+    //   }
+
     componentDidMount() {
-        console.log(this.props.match.params.id)
+        // console.log(this.props.match.params.id)
         this
             .props
             .fetchItineraries(this.props.match.params.id);
-
-            let {username} = this.props.login
+            
+            const decoded = jwt_decode(localStorage.token)
+            // console.log('decoded', decoded)
+            // let {username} = this.props.login
+            console.log('this.props.loing', this.props.login)
             Axios
-                .get("http://localhost:5000/users/id/" + username)
+                .get("http://localhost:5000/users/id/" + decoded.username)
                 .then(res => {
                     console.log("XXXXX", res.data.favourites)
                     const favourites = res.data.favourites;
                     this.setState({ favourites })
+                    
                 })
                 .catch(err => {
                     console.log(err.response);
@@ -48,6 +64,9 @@ export class MYtinerary extends Component {
                 
            
     }
+    // favourites() {
+        
+    // }
 // onLikeChange(this.props.itineraryId, !this.props.liked)
 
     mapItinerary = () => {
@@ -71,10 +90,11 @@ export class MYtinerary extends Component {
                 marginRight: 'auto',
                 paddingBottom: 10
           }}/> 
-
+            {console.log("this.state.favourites", this.state.favourites)}
             <LikeButton 
             itineraryId={itinerary._id} 
-            // liked={!this.state.favourites.find(({ itineraryId}) => itineraryId === itinerary._id)}
+            liked={!!this.state.favourites.find(({ itineraryId}) => itineraryId === itinerary._id)}
+            // liked={!this.state.favourites.filter(({ itineraryId }) => { return itineraryId === itinerary._id ? true : false})}
             // onLikeChange={this.onLikeChange}
             />
           <p><b>Rating: </b>{itinerary.rating}
@@ -107,15 +127,13 @@ export class MYtinerary extends Component {
       </div>]
       }
         )
-     }
+    }
+  
 
     render() {
-        // const itineraries = [];
-        // localStorage.setItem("token", this.props.login.token)
         const itineraries = this.mapItinerary()
         return (
-
-            <div>
+            <div>  
             <Header/>
               {itineraries}
              <p className='links' style={{marginTop: 10}}><Link to="/cities">Choose another city</Link></p>
@@ -126,26 +144,7 @@ export class MYtinerary extends Component {
 }
 const mapStateToProps = state => {
     console.log('redux MY', state)
-    return {itineraries: state.itineraries, login: state.login};
+    return {itineraries: state.itineraries, login: state.login, favourites: state.favourites};
 };
 
 export default connect(mapStateToProps, {fetchItineraries})(MYtinerary);
-
-
- // let {username} = this.props.login
-            // console.log('this.props.login', this.props.login)
-            // Axios
-            //     .get("http://localhost:5000/users/id/" + username)
-            //     .then(res => {
-            //         console.log("XXXXX", res)
-            //         const favourites = res.data.favourites;
-            //         this.setState({ favourites })
-            //         // if (res.data.favourites.itineraryId !== null) {
-            //         //     this.setState({
-            //         //         liked: this.state.liked
-            //         //     })
-            //         // }
-            //     })
-            //     .catch(err => {
-            //         console.log(err.response);
-            //     }) 

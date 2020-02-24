@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Comments from './components/Comments';
 import Edit from './components/CommentsEdit';
 import Index from './components/CommentsIndex';
+// import jwt_decode from "jwt-decode";
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // import PrivateRoute from 'react-private-route'
 // import { MemoryRouter } from 'react-router';
@@ -20,7 +21,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 class App extends Component {
+  
+  
+
   render() {
+      localStorage.getItem("token") !== null ? 
+      localStorage.getItem("token") :
+      localStorage.setItem("token", window.location.search.split("=")[1])
+    
+  // localStorage.setItem("token", window.location.search.split("=")[1]) check if the token, decode and store
     return (
       <BrowserRouter>
         <div className="App">

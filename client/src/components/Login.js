@@ -22,9 +22,9 @@ class Login extends Component {
             isLoggedIn: false,
             message: '',
             success: false,
-            // token: '',
             username: '',
-            _id: ''
+            _id: '',
+            token: ''
         }
         this.onChange = this
             .onChange
@@ -64,7 +64,8 @@ class Login extends Component {
             let body = {email: this.state.email,
                         password: this.state.password}
             this.props.loginNow(body)
-            localStorage.getItem("token")
+            
+           
         }
     }
 
@@ -80,6 +81,7 @@ class Login extends Component {
         }
 /* Token here???? */
     isLoggedIn() {
+        // localStorage.setItem("token", this.props.login.token)
         return (
             <div>
                 <p>Welcome {this.props.login.username}</p>
@@ -91,6 +93,7 @@ class Login extends Component {
     }
 
     render() {
+        // localStorage.setItem("token", this.props.login.token)
         return (
             <div>
                 <Header/>
@@ -149,7 +152,9 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     console.log('redux', state)
+    
     return {
+        
         success: state.success,
       login: state.login,
       error: state.error,
@@ -166,19 +171,4 @@ const mapStateToProps = state => {
   )(Login);
 
 
-                /* <GoogleLogin
-                    clientId={googleClientID}
-                    render={renderProps => (
-                      <GoogleLoginButton
-                        className="googleBtn"
-                        alt="googleLogo"
-                        onClick={renderProps.onClick}
-                        align={"center"}
-                      >
-                        <span>Log in with Google</span>
-                      </GoogleLoginButton>
-                    )}
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                     /> */
+ 

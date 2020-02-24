@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import React from 'react';
 import Axios from 'axios';
 import {connect} from "react-redux";
+import jwt_decode from "jwt-decode";
 // import loginNow from "../store/actions/loginActions";
 // import PropTypes from "prop-types";
 
@@ -9,7 +10,7 @@ class LikeButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            liked: false,
+            liked: this.props.liked,
             username: '',
             itineraryId: this.props.itineraryId
         };
@@ -18,29 +19,20 @@ class LikeButton extends React.Component {
             .bind(this);
     }
 
-    // componentDidMount() {
-    //     let {username} = this.props.login
-    //     Axios
-    //         .get("http://localhost:5000/users/id/" + username)
-    //         .then(res => {
-    //             console.log("XXXXX", res.data.favourites)
-    //             const favourites = res.data.favourites;
-    //             this.setState({ favourites })
-    //         })
-    //         .catch(err => {
-    //             console.log(err.response);
-    //         })}
-
     /* Check if user has favourites, post/remove from favourites*/
     handleClick() {
-        // console.log('favourites', this.state.favourites)
-        let {username} = this.props.login
+        // let {username} = this.props.login
+        // console.log('username', username)
         const itineraryId = this.props.itineraryId
+
             this.setState({
                 liked: !this.state.liked // here we need to check whether the itinerary is in the favourites
             });
-        // console.log('itineraryId', itineraryId)
-        // const { itineraryId, liked, onLikeChange} = this.props
+
+            const decoded = jwt_decode(localStorage.token)
+            console.log('decoded', decoded)
+        const username = decoded.username
+        // const { liked, onLikeChange} = this.props
         // onLikeChange(itineraryId, !liked)
         
         if (this.state.liked === false) {
@@ -59,6 +51,7 @@ class LikeButton extends React.Component {
     
 
     render() {
+        console.log('LIKE', this.state.liked)
         // onLikeChange(this.props.itineraryId, !this.props.liked)
         const label = this.state.liked
             ? 'Unlike'

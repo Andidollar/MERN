@@ -49,10 +49,10 @@ export class FetchCities extends Component {
             console.log(this.state)
             this.setState({input: e.target.value})
             // localStorage.setItem("token", this.props.login.token)
-            // const jwtToken = localStorage.getItem("token");
-            // const decode = jwtToken.jwt_decode;
-            // console.log("decode", decode)
+            
         }
+
+        // localStorage.setItem("token", window.location.search.split("=")[1])
         
         return (
             
@@ -71,7 +71,7 @@ export class FetchCities extends Component {
                         marginBottom: 15,
                         marginTop: 10
                     }}/></div>
-                {isLoaded && <Cities cities={cities} input={this.state.input}/>}
+                {isLoaded && <Cities cities={cities} input={this.state.input} />}
                 <Footer></Footer>
             </div>
         )
@@ -80,12 +80,13 @@ export class FetchCities extends Component {
         this
             .props
             .fetchAll()
-        //     console.log('this.props', this.props)
-        // localStorage.setItem("token", this.props.login.token)
+            
+        
     }
 
 }
 const mapStateToProps = state => {
+    // localStorage.setItem("token", state.login.token)
     console.log("Cityredux", state)
     return {cities: state.cities, login: state.login};
 };

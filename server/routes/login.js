@@ -96,7 +96,9 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
             //     success: true,
             //     token,
             // });
+            
             res.redirect('localhost:3000/cities/?code=' + token);
+            
             // res.send({token})
             // localStorage.getItem('bearer' + token)
 

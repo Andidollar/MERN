@@ -11,10 +11,12 @@ export default function loginNow(body) {
                 .then(res => {
                     console.log(res);
                     localStorage.setItem("token", res.data.token);
+                    // console.log('res.data.token', res.data.token)
                     const decoded = jwt_decode(res.data.token);
                   
                     // localStorage.getItem("token")
                     dispatch(loginSuccess(res.data, decoded));
+                    // localStorage.setItem("token", res.data.token);
                 })
                 .catch(err => {
                     console.log(err.response.data);

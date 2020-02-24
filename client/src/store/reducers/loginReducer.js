@@ -13,6 +13,8 @@ const loginReducer = (state = initState, action) => {
     console.log(action.type)
     switch (action.type) {
         case "LOGIN_SUCCESS":
+            // localStorage.setItem("token", action.token);
+            // console.log('token', action.token)
             return {
                 ...state,
                 isLoggedIn: action.isLoggedIn,
@@ -36,12 +38,12 @@ const loginReducer = (state = initState, action) => {
                     error: action.error,
                     userEmail: action.userEmail
             };
-        default:
-            return {
-                ...state
-            };
-    }
+        default: 
+        
+        console.log('obj')
+        return state 
+            
 };
 
-
+}
 export default loginReducer;

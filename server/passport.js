@@ -31,6 +31,7 @@ module.exports = passport.use(
         // check if user already exists in our own db
         user.findOne({ googleId: profile.id }).then((currentUser) => {
           console.log('currentUser', currentUser)
+          
           if (currentUser) {
             console.warn("hy", currentUser);
             done(null, currentUser);
