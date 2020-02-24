@@ -21,8 +21,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 
 class App extends Component {
-  
-  
 
   render() {
       if (localStorage.getItem("token") !== null) {
