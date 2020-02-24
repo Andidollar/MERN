@@ -43,15 +43,24 @@ class LikeButton extends React.Component {
                 })
                 .catch(err => {
                     console.log(err.response);
+                    // window.location.reload();
                 });
         } else {
             Axios.post("http://localhost:5000/users/removeFromFavorite", {itineraryId, username})
+            .then(res => {
+                console.log("fav", res);
+            })
+            .catch(err => {
+                console.log(err.response);
+                // window.location.reload();
+            })
         }
     }
     
 
     render() {
         console.log('LIKE', this.state.liked)
+        
         // onLikeChange(this.props.itineraryId, !this.props.liked)
         const label = this.state.liked
             ? 'Unlike'

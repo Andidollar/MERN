@@ -33,13 +33,7 @@ export class MYtinerary extends Component {
         }
     }
 
-    // decoded() {
-    //     console.log('localStorage', localStorage.token)
-    //     // const token = localStorage.getItem("token");
-    //     const decoded = jwt_decode(localStorage.token)
-    //     console.log('decoded', decoded)
-    //     // dispatchEvent(decoded)
-    //   }
+
 
     componentDidMount() {
         // console.log(this.props.match.params.id)
@@ -48,38 +42,21 @@ export class MYtinerary extends Component {
             .fetchItineraries(this.props.match.params.id);
             
             const decoded = jwt_decode(localStorage.token)
-            // console.log('decoded', decoded)
-            // let {username} = this.props.login
-            // console.log('this.props.loing', this.props.login)
             Axios
                 .get("http://localhost:5000/users/id/" + decoded.username)
                 .then(res => {
                     console.log("XXXXX", res.data.favourites)
                     const favourites = res.data.favourites;
                     this.setState({ favourites })
-                    
                 })
                 .catch(err => {
                     console.log(err.response);
+                    
                 })
-                console.log('this.props.itinerar', this.props.itinerar)
-
-                // Axios.get('http://localhost:5000/comments/all')
-                // .then(res => {
-                  
-                // //   console.log('COMMMMMENTTSSS', res.data)
-                //   const comments = res.data;
-                //   this.setState({ comments });
-                //   console.log('comments', comments)
-                // })
-                // .catch(function (error) {
-                //   console.log(error);
-                // })
     }
-    // favourites() {
-        
-    // }
-// onLikeChange(this.props.itineraryId, !this.props.liked)
+
+
+
 
     mapItinerary = () => {
         
@@ -105,7 +82,7 @@ export class MYtinerary extends Component {
             
             <LikeButton 
             itineraryId={itinerary._id} 
-            liked={!!this.state.favourites.find(({ itineraryId}) => itineraryId === itinerary._id)}
+            liked={this.state.favourites.find(({ itineraryId}) => itineraryId === itinerary._id)}
             // liked={!this.state.favourites.filter(({ itineraryId }) => { return itineraryId === itinerary._id ? true : false})}
             // onLikeChange={this.onLikeChange}
             />
@@ -139,6 +116,7 @@ export class MYtinerary extends Component {
           itineraryId={itinerary._id}
         //visible={this.state.comments.includes(itinerary._id)}
             visible={this.state.comments.filter(({ itineraryId }) => itineraryId === itinerary._id)}
+            
           />
           <Index itineraryId={itinerary._id} />
       </div>]
@@ -149,6 +127,7 @@ export class MYtinerary extends Component {
 
     render() {
         const itineraries = this.mapItinerary()
+        
         return (
             <div>  
             <Header/>
